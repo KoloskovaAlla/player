@@ -1,0 +1,66 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+progress {
+  appearance: none;
+  background-size: auto;
+  border: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  color: currentColor;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: auto;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img {
+  width: 100%;
+}
+
+input,
+select {
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+select {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}

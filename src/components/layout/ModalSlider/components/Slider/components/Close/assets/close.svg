@@ -1,0 +1,17 @@
+<svg
+  width="24"
+  height="16"
+  viewBox="0 0 30 23"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <rect
+    width="29.5867"
+    height="1.5"
+    transform="matrix(0.716984 -0.69709 0.716984 0.69709 3.68591 21.3105)"
+  />
+  <rect
+    width="29.5867"
+    height="1.5"
+    transform="matrix(0.716984 0.69709 -0.716984 0.69709 5.09985 0.686401)"
+  />
+</svg>

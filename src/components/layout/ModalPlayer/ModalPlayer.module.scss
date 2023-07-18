@@ -1,0 +1,70 @@
+@import 'scss/settings/vars.scss';
+
+.modal {
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.wrapper {
+  // position: relative;
+  // width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  z-index: 10;
+
+  @media (min-width: $breakpoint_md) {
+    max-width: 450px;
+  }
+}
+
+.close {
+  // position: absolute;
+  // right: 10px;
+  // top: 10px;
+  display: flex;
+  justify-content: end;
+
+  // svg {
+  //   margin-right: 10px;
+  //   margin-left: auto;
+  // }
+
+}
+
+.mySwiper {
+  // position: absolute;
+  margin: 0 auto;
+  // z-index: 10;
+}
+
+.prev,
+.next {
+  position: absolute;
+  bottom: 65px;
+
+  svg {
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.prev {
+  left: 50%;
+  transform: translate(-200%, 0%);
+  z-index: 10;
+}
+
+.next {
+  right: 50%;
+  transform: translate(200%, 0%);
+  z-index: 10;
+}

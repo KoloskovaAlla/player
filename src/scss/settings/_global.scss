@@ -1,0 +1,33 @@
+body {
+  font-family: $font_family_main;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  fill: #000;
+  background: $bg_light;
+  padding-top: $heigth_header_xs;
+  padding-bottom: 100px;
+  transition: all 0.5s;
+
+  @media (min-width: $breakpoint_lg) {
+    padding-top: $heigth_header_lg;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &.dark {
+    color: #fff;
+    fill: #fff;
+    background: $bg_dark;
+  }
+
+  &.no_scroll {
+    overflow-y: hidden;
+  }
+
+  &.ytp-large-play-button {
+    height: 20px;
+  }
+}

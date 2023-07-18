@@ -1,0 +1,103 @@
+.preview {
+  position: relative;
+  height: 70vw;
+  width: 100%;
+  background: rgba(213, 200, 200, 0.3);
+  overflow: hidden;
+  cursor: zoom-in;
+
+  @media (min-width: $breakpoint_md) {
+    margin: auto 0;
+    height: 280px;
+    min-height: auto;
+  }
+
+  @media (min-width: $breakpoint_lg) {
+    height: 350px;
+  }
+
+  @media (min-width: $breakpoint_xl) {
+    height: 400px;
+  }
+
+  &::after {
+    content: url('data:image/svg+xml, \
+      <svg \
+        width="18" \
+        height="18" \
+        viewBox="0 0 18 18" \
+        fill="none" \
+        xmlns="http://www.w3.org/2000/svg" \
+      > \
+        <path \
+          fill-rule="evenodd" \
+          clip-rule="evenodd" \
+          d="M16.6464 17.3536L12.6464 13.3536L13.3536 12.6465L17.3536 16.6465C17.5488 16.8417 17.5488 17.1583 17.3536 17.3536C17.1583 17.5489 16.8417 17.5489 16.6464 17.3536Z" \
+          fill="black" \
+        /> \
+        <path \
+          d="M7.5 4.5L7.5 7.5H4.5V8.5H7.5V11.5H8.5V8.5H11.5V7.5H8.5V4.5H7.5Z" \
+          fill="black" \
+        /> \
+        <path \
+          fill-rule="evenodd" \
+          clip-rule="evenodd" \
+          d="M8 15C11.866 15 15 11.866 15 8C15 4.13401 11.866 1 8 1C4.13401 1 1 4.13401 1 8C1 11.866 4.13401 15 8 15ZM8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16Z" \
+          fill="black" \
+        /> \
+      </svg> \
+    ');
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(233, 233, 233, 0.7);
+    fill: #000;
+  }
+
+  img {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: 100%;
+    transition: all 0.7s;
+    object-fit: cover;
+
+    @media (min-width: $breakpoint_md) {
+      height: 100%;
+    }
+
+    @media (min-width: $breakpoint_lg) {
+      &:hover {
+        height: 102%;
+        width: 102%;
+      }
+    }
+  }
+
+  .preloader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 34px;
+    height: 34px;
+    background: none;
+
+    &.dark {
+      background: none;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}

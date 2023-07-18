@@ -1,0 +1,181 @@
+.modal-slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  overflow: hidden;
+
+  animation-name: dark-in;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+  @keyframes dark-in {
+    100% {
+      background: rgba(0, 0, 0, 0.95);
+    }
+  }
+
+  &__description {
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    transition: opacity 0.5s;
+
+    @media (min-width: $breakpoint_md) {
+      top: 35px
+    }
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    span {
+      width: fit-content;
+      white-space: nowrap;
+      color: #fff;
+      border-right: 2px solid transparent;
+
+      &.cursor {
+        border-color: currentColor;
+      }
+
+      &.cursor-blink {
+        border-color: currentColor;
+        animation-name: blink;
+        animation-duration: 1s;
+        animation-timing-function: step-end;
+        animation-iteration-count: infinite;
+
+        @keyframes blink {
+          0%,
+          100% {
+            border-color: transparent;
+          }
+
+          50% {
+            border-color: currentColor;
+          }
+        }
+      }
+    }
+  }
+
+  .slider {
+    position: fixed;
+    z-index: 2;
+    overflow-x: hidden;
+    background: #fff;
+    transition: all 0.5s;
+
+    &__close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+      height: 40px;
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(233, 233, 233, 0.7);
+      fill: #000;
+    }
+
+    &__slides {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      display: flex;
+      transition: all 0.5s;
+    }
+
+    &__slide {
+      height: 100%;
+      object-fit: cover;
+      overflow: hidden;
+    }
+
+    &__prev,
+    &__next {
+      position: absolute;
+      top: 50%;
+      z-index: 1;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 1px 3px 5px rgba(95, 95, 95, 0.5);
+      opacity: 0;
+
+      animation-name: fade-in;
+      animation-delay: 0.5s;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+
+      &:disabled {
+        visibility: hidden;
+      }
+
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+
+    &__prev {
+      left: 5px;
+    }
+
+    &__next {
+      right: 5px;
+    }
+
+    &__pagination {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      z-index: 10;
+      transform: translateX(-50%);
+      color: #000;
+      opacity: 0;
+      padding: 4px 6px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+
+      animation-name: fade-in;
+      animation-delay: 0.5s;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+
+      &.hidden {
+        visibility: hidden;
+      }
+    }
+
+    @keyframes fade-in {
+      100% {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

@@ -1,0 +1,262 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  height: $heigth_header_xs;
+  color: #000;
+  background: $bg_light;
+  transition: all 0.5s;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+
+  @media (min-width: $breakpoint_lg) {
+    height: $heigth_header_lg;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background: inherit;
+  }
+
+  &.dark {
+    color: #fff;
+    background: $bg_dark;
+  }
+
+  &.hidden {
+    transition: all 0.6s;
+    top: -100%;
+    opacity: 0;
+  }
+
+  &__wrapper {
+    width: 100%;
+    height: $heigth_header_xs;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 15px;
+
+    @media (min-width: $breakpoint_md) {
+      max-width: $max_width_md;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    @media (min-width: $breakpoint_lg) {
+      max-width: $max_width_lg;
+      height: $heigth_header_lg;
+    }
+
+    @media (min-width: $breakpoint_xl) {
+      max-width: $max_width_xl;
+    }
+  }
+
+  &__nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  &__logo {
+    display: block;
+    height: 30px;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.5s;
+
+    @media (min-width: $breakpoint_lg) {
+      height: 40px;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    svg {
+      height: 100%;
+      fill: currentColor;
+    }
+  }
+
+  &__menu {
+    visibility: hidden;
+    position: fixed;
+    top: -150vh;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    color: #000;
+    background: $bg_light;
+    transition: all 0.5s;
+
+    @media (min-width: $breakpoint_lg) {
+      position: absolute;
+      left: auto;
+      right: 0;
+      width: 300px;
+      border: 1px solid #aaa;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &.active {
+      height: 100vh;
+      top: $heigth_header_xs;
+      visibility: visible;
+
+      @media (min-width: $breakpoint_md) {
+        height: auto;
+      }
+
+      @media (min-width: $breakpoint_lg) {
+        top: $heigth_header_lg + 1px;
+      }
+    }
+
+    &.dark {
+      color: #fff;
+      background: $bg_dark;
+    }
+  }
+
+  &__item {
+    font-size: 20px;
+    border-bottom: 1px solid #aaa;
+
+    @media (min-width: $breakpoint_lg) {
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    a {
+      display: block;
+      width: 100%;
+      padding: 15px;
+
+      @media (min-width: $breakpoint_md) {
+        text-align: center;
+      }
+    }
+  }
+
+  &__socials {
+    margin-left: auto;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+
+    a {
+      margin-left: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 30px;
+      width: 30px;
+      transition: opacity 0.5s;
+
+      @media (min-width: $breakpoint_lg) {
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+
+      svg {
+        display: block;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  &__theme {
+    margin-left: 20px;
+    height: 30px;
+    fill: currentColor;
+    transition: opacity 0.5s;
+    position: relative;
+    z-index: 2;
+
+    @media (min-width: $breakpoint_lg) {
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    svg {
+      height: 100%;
+    }
+  }
+
+  &__burger {
+    margin-left: 20px;
+    height: 20px;
+    width: 30px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    color: currentColor;
+
+    span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: currentColor;
+      transition: opacity 0.3s;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      height: 2px;
+      width: 100%;
+      position: absolute;
+      left: 0;
+      background: currentColor;
+      transition: top 0.3s, bottom 0.3s, transform 0.3s;
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+
+    &.active {
+      span {
+        opacity: 0;
+      }
+
+      &::before {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      &::after {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+      }
+    }
+  }
+}

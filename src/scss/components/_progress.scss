@@ -1,0 +1,28 @@
+.progress {
+  position: fixed;
+  top: $heigth_header_xs;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  height: 2px;
+  background: #AAA;
+  transition: top 0.5s;
+
+  @media (min-width: $breakpoint_lg) {
+    top: $heigth_header_lg;
+  }
+
+  &::-webkit-progress-bar {
+    background: #AAA;
+  }
+
+  &::-webkit-progress-value {
+    border-radius: 10px;
+    background: rgb(31, 172, 247);
+  }
+
+  &.hidden {
+    transition: all 1s;
+    top: -100%;
+  }
+}
