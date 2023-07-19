@@ -1,0 +1,13 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 200px;
+  overflow-x: hidden;
+  padding: 15px 30px;
+  border: 1px solid gray;
+  border-radius: 30px;
+  font-size: 16px;
+  color: inherit;
+  margin: 100px auto auto auto;
+}
