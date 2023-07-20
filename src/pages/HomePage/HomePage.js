@@ -23,8 +23,9 @@ export const HomePage = () => {
   }, [dispatch, fetchHomePageData, setSlides]);
 
   return (
-    <div >
-      <Link        
+    <div>
+      <h1>Podcasts App</h1>
+      <Link
         to={`/podcasts`}
         className={classes.button}
       >
