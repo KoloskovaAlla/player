@@ -5,6 +5,8 @@ import SliderContext from 'contexts/SliderContext';
 import SectionBase from 'components/layout/SectionBase';
 import SectionList from './components/SectionList';
 import Preloader from 'components/layout/Preloader';
+import { Link } from 'react-router-dom';
+import classes from './HomePage.module.scss'
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -21,20 +23,14 @@ export const HomePage = () => {
   }, [dispatch, fetchHomePageData, setSlides]);
 
   return (
-    <>
-      {isLoading && <Preloader />}
-
-      {homePageData?.about && <SectionBase data={homePageData.about} />}
-
-      {homePageData?.problems && <SectionList data={homePageData.problems} reverse />}
-
-      {homePageData?.services && <SectionList data={homePageData.services} />}
-
-      {homePageData?.steps && <SectionBase data={homePageData.steps} reverse />}
-
-      {homePageData?.techniques && <SectionList data={homePageData.techniques} />}
-
-      {homePageData?.resolve && <SectionBase data={homePageData.resolve} reverse />}
-    </>
+    <div>
+      <h1>Podcasts App</h1>
+      <Link
+        to={`/podcasts`}
+        className={classes.button}
+      >
+        Podcasts
+      </Link>
+    </div>
   );
 };
