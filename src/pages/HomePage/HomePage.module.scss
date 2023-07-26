@@ -6,7 +6,12 @@ main {
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
-  min-height: 100vh; 
+  min-height: 100vh;
+  // height: 100vh;
+}
+
+.wrapper {
+  padding-top: 30px;
 }
 
 h1 {
