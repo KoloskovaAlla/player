@@ -23,7 +23,7 @@ export const HomePage = () => {
   }, [dispatch, fetchHomePageData, setSlides]);
 
   return (
-    <div>
+    <main>
       <h1>Podcasts App</h1>
       <Link
         to={`/podcasts`}
@@ -31,6 +31,6 @@ export const HomePage = () => {
       >
         Podcasts
       </Link>
-    </div>
+    </main>
   );
 };
