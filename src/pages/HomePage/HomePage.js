@@ -24,13 +24,15 @@ export const HomePage = () => {
 
   return (
     <main>
-      <h1>Podcasts App</h1>
-      <Link
-        to={`/podcasts`}
-        className={classes.button}
-      >
-        Podcasts
-      </Link>
+      <div className={classes.wrapper}>
+        <h1>Podcasts App</h1>
+        <Link
+          to={`/podcasts`}
+          className={classes.button}
+        >
+          Podcasts
+        </Link>
+      </div>
     </main>
   );
 };
