@@ -18,19 +18,23 @@ export const HomePage = () => {
   }, []);
 
   useEffect(() => {
+    if (homePageData) console.log(homePageData);
+  }, [homePageData]);
+
+  useEffect(() => {
     setSlides([]);
     dispatch(fetchHomePageData());
   }, [dispatch, fetchHomePageData, setSlides]);
 
-  return (
+  if (homePageData) return (
     <main>
       <div className={classes.wrapper}>
-        <h1>Podcasts App</h1>
+        {homePageData?.title?.content && <h1>{homePageData.title.content}</h1>}
         <Link
           to={`/podcasts`}
           className={classes.button}
         >
-          Podcasts
+          {homePageData.buttonText}
         </Link>
       </div>
     </main>
