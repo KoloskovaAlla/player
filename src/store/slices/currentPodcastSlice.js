@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  podcast: JSON.parse(localStorage.getItem('podcast')) ?? null,
+  // podcast: JSON.parse(localStorage.getItem('podcast')) ?? null,
+  podcast: null,
   id: localStorage.getItem('id') ?? null,
   key: localStorage.getItem('key') ?? null,
 };
