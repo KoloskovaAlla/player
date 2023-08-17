@@ -1,7 +1,7 @@
 {
-  "name": "julia-mechina",
+  "name": "player",
   "version": "0.1.0",
-  "author": "Vitaliy Nagora",
+  "author": "Alla Koloskova",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
