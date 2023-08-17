@@ -54,7 +54,9 @@ export const Player = () => {
     const { target: { duration, currentTime } } = event;
     const progress = currentTime / duration;
     setProgress(progress);
-    setDuration(duration);
+    progressRef.current.style.width = `${progress * 100}%`;
+    thumbRef.current.style.left = `${progress * 100}%`;
+    setDuration(duration);    
     setCurrentTime(currentTime);
     setMinutes(Math.floor(currentTime / 60));
     setMinutesLeft(Math.floor((duration - currentTime) / 60));
@@ -73,7 +75,7 @@ export const Player = () => {
   }, [audio, id]);
 
   const handleProgressChange = (event) => {
-    const changedCurrentTime = event.target.value * duration;
+    const changedCurrentTime = event.target.value * duration;        
     thumbRef.current.style.left = `${changedCurrentTime / duration * 100}%`;
     progressRef.current.style.width = `${changedCurrentTime / duration * 100}%`;
     setCurrentTime(changedCurrentTime);

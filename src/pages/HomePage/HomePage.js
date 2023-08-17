@@ -21,10 +21,25 @@ export const HomePage = () => {
     dispatch(fetchHomePageData());
   }, [dispatch, fetchHomePageData, setSlides]);
 
+  // const handleMouseEnter = () => {
+  //   setIsHover(true);
+  //   console.log(buttonRef.current.style);
+  //   console.log('test');
+  // };
+
   const handleMouseEnter = () => {
     setIsHover(true);
-    console.log(buttonRef.current.style);
-    console.log('test');
+    buttonRef.current.style.scale = '1.2';
+    buttonRef.current.style.background = 'rgb(249, 167, 137)';
+    buttonRef.current.style.transitionProperty = 'all';
+    buttonRef.current.style.transitionDuration = '1s';
+  };
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
+    buttonRef.current.style.scale = '1';
+    buttonRef.current.style.transitionProperty = 'all';
+    buttonRef.current.style.background = 'rgb(244, 116, 69)';
   };
 
   if (homePageData) return (
@@ -35,8 +50,8 @@ export const HomePage = () => {
           to={`/podcasts`}
           className={classes.button}
           onMouseOver={handleMouseEnter}
-     
-          ref={buttonRef} 
+          onMouseLeave={handleMouseLeave}
+          ref={buttonRef}
         >
           {homePageData.buttonText}
         </Link>
