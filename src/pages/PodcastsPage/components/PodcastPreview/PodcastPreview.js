@@ -86,6 +86,7 @@ export const PodcastPreview = ({ podcast }) => {
         <Link to={`/podcasts/${podcast.key}`}>
           <div className={classes.body}>
             <h3 className={classes.title}>{podcast.title}</h3>          
+            <h4 className={classes.title}>{podcast.subtitle}</h4>          
           </div>
         </Link>
       </div>
