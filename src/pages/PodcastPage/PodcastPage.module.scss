@@ -83,6 +83,24 @@
   }
 }
 
+.subtitle {
+  font-family: $font_family_title;
+  font-size: 30px;
+  font-weight: 300;
+
+  @media (min-width: $breakpoint_md) {
+    font-size: 36px;
+  }
+
+  @media (min-width: $breakpoint_lg) {
+    font-size: 42px;
+  }
+
+  @media (min-width: $breakpoint_xl) {
+    font-size: 54px;
+  }
+}
+
 .copy {
   margin-top: 10px;
 
