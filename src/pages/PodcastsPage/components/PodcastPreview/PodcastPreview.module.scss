@@ -48,20 +48,28 @@
 .title {
   font-weight: 700;
   margin-bottom: 5px;
-  font-size: 14px;
+  font-size: 16px;
+
+  @media (min-width: $breakpoint_md) {
+    font-size: 16px; 
+  }
 
   @media (min-width: $breakpoint_xl) {
-    font-size: 16px;
+    font-size: 20px;   
   }
 }
 
 .subtitle {
   font-weight: 700;
   margin-bottom: 5px;
-  font-size: 10px;
+  font-size: 14px;
+
+  @media (min-width: $breakpoint_md) {
+    font-size: 14px;
+  }
 
   @media (min-width: $breakpoint_xl) {
-    font-size: 12px;
+    font-size: 18px;
   }
 }
 
