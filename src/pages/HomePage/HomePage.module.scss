@@ -1,3 +1,5 @@
+@import 'scss/settings/vars.scss';
+
 main {
   background-image: url('../../assets/photo_5316877150185442871_w.jpg');
   background-image: url('../../assets/photo_5316786582210070659_y.jpg');
@@ -11,13 +13,25 @@ main {
 }
 
 .wrapper {
-  padding-top: 30px;
+  padding-top: 100px;
 }
 
 h1 {
   font-size: 28px;
   font-weight: 700;
   text-align: center;
+  
+  @media (min-width: $breakpoint_md) {
+    font-size: 32px;
+  }
+
+  @media (min-width: $breakpoint_lg) {
+    font-size: 36px;
+  }
+
+  @media (min-width: $breakpoint_xl) {
+    font-size: 42px;
+  }
 }
 
 .button {
@@ -36,4 +50,16 @@ h1 {
   // background-color: rgb(249, 167, 137);
   color: #000;
   font-weight: 600;
+
+  @media (min-width: $breakpoint_md) {
+    font-size: 24px;
+  }
+
+  @media (min-width: $breakpoint_lg) {
+    font-size: 28px;
+  }
+
+  @media (min-width: $breakpoint_xl) {
+    font-size: 34px;
+  }
 }

@@ -21,12 +21,6 @@ export const HomePage = () => {
     dispatch(fetchHomePageData());
   }, [dispatch, fetchHomePageData, setSlides]);
 
-  // const handleMouseEnter = () => {
-  //   setIsHover(true);
-  //   console.log(buttonRef.current.style);
-  //   console.log('test');
-  // };
-
   const handleMouseEnter = () => {
     setIsHover(true);
     buttonRef.current.style.scale = '1.2';
