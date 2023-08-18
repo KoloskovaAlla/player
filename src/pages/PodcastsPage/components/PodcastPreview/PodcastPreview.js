@@ -49,6 +49,12 @@ export const PodcastPreview = ({ podcast }) => {
     imageRef.current.style.transitionProperty = 'all';
   };
 
+  const handleTitleClick = () => {
+    dispatch(setId(podcast.id));
+    dispatch(setKey(podcast.key));
+    dispatch(setPodcast(podcast));
+  };
+
   return (
     <>
       <div
@@ -63,10 +69,10 @@ export const PodcastPreview = ({ podcast }) => {
           onClick={handlePodcastClick}
         >
           <div className={classes.image} >
-            <img 
-              ref={imageRef} 
-              src={podcast?.image?.src && podcast.image.src} 
-              alt={podcast?.image?.alternate && podcast.image.alternate} 
+            <img
+              ref={imageRef}
+              src={podcast?.image?.src && podcast.image.src}
+              alt={podcast?.image?.alternate && podcast.image.alternate}
             />
           </div>
           {isHover && !isPlaying && (
@@ -84,9 +90,12 @@ export const PodcastPreview = ({ podcast }) => {
         </div>
 
         <Link to={`/podcasts/${podcast.key}`}>
-          <div className={classes.body}>
-            <h3 className={classes.title}>{podcast.title}</h3>          
-            <h4 className={classes.subtitle}>{podcast.subtitle}</h4>          
+          <div
+            className={classes.body}
+            onClick={handleTitleClick}
+          >
+            <h3 className={classes.title}>{podcast.title}</h3>
+            <h4 className={classes.subtitle}>{podcast.subtitle}</h4>
           </div>
         </Link>
       </div>
