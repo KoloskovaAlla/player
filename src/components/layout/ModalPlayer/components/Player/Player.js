@@ -138,7 +138,8 @@ export const Player = () => {
         </div>
 
         <div className={classes.info}>
-          <h5 className={classes.title}>{podcast?.title}</h5>    
+          <h3 className={classes.title}>{podcast?.title}</h3>    
+          <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>    
         </div>
 
         <div className={classes.navigation}>
