@@ -8,12 +8,11 @@ import { PodcastPage } from 'pages/PodcastPage';
 export const App = () => {
   return (
     <>
-      
       <Routes>
-        <Route path='/' element={<HomePage />} />  
+        <Route path='/' element={<HomePage />} />
         <Route path='/podcasts' element={<PodcastsPage />} />
         <Route path='/podcasts/:key' element={<PodcastPage />} />
-      </Routes>   
+      </Routes>
     </>
   );
 };
