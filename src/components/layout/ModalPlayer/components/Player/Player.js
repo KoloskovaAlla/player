@@ -43,7 +43,7 @@ export const Player = () => {
     audio.pause();
   };
 
-  useEffect(() => {  
+  useEffect(() => {
     if (!podcast) return;
     const { audio: { src } } = podcast;
     let audio = new Audio(src);
@@ -56,7 +56,7 @@ export const Player = () => {
     setProgress(progress);
     progressRef.current.style.width = `${progress * 100}%`;
     thumbRef.current.style.left = `${progress * 100}%`;
-    setDuration(duration);    
+    setDuration(duration);
     setCurrentTime(currentTime);
     setMinutes(Math.floor(currentTime / 60));
     setMinutesLeft(Math.floor((duration - currentTime) / 60));
@@ -75,7 +75,7 @@ export const Player = () => {
   }, [audio, id]);
 
   const handleProgressChange = (event) => {
-    const changedCurrentTime = event.target.value * duration;        
+    const changedCurrentTime = event.target.value * duration;
     thumbRef.current.style.left = `${changedCurrentTime / duration * 100}%`;
     progressRef.current.style.width = `${changedCurrentTime / duration * 100}%`;
     setCurrentTime(changedCurrentTime);
@@ -84,8 +84,9 @@ export const Player = () => {
   };
 
   const handleThumbTouch = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     event.stopPropagation();
+    console.log('перемотка')
   };
 
   const handleVolumeChange = (event) => {
@@ -113,9 +114,6 @@ export const Player = () => {
             />
             <div
               ref={thumbRef}
-              onTouchMove={handleThumbTouch}
-              onTouchStart={handleThumbTouch}
-              onTouchCancel={handleThumbTouch}
               onClick={handleThumbTouch}
               className={classes.thumb}
             >
@@ -129,6 +127,9 @@ export const Player = () => {
             step="any"
             value={`${currentTime / duration}`}
             onInput={handleProgressChange}
+            onTouchMove={handleThumbTouch}
+            onTouchStart={handleThumbTouch}
+            onTouchCancel={handleThumbTouch}
           />
         </label>
 
@@ -138,8 +139,8 @@ export const Player = () => {
         </div>
 
         <div className={classes.info}>
-          <h3 className={classes.title}>{podcast?.title}</h3>    
-          <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>    
+          <h3 className={classes.title}>{podcast?.title}</h3>
+          <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>
         </div>
 
         <div className={classes.navigation}>
