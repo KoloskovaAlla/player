@@ -82,8 +82,25 @@ export const ModalPlayer = () => {
     setInitialSlide(initialSlide - 1);
   }, [id]);
 
+  const [isSeeking, setIsSeeking] = useState(false);
+
+  useEffect(() => {
+    console.log('isSeeking - ' + isSeeking)
+    if (isSeeking) {
+      // сюда надо добавить код, чтобы слайды не менялись
+    }
+  }, [isSeeking])
+
+  const handleTouchMovePlayer = (event) => {
+    // console.log('переключение на соседний трек, move');
+  };
+
   if (podcasts) return (
-    <div onClick={handleModalClick} className={classes.modal}>
+    <div
+      onClick={handleModalClick}
+      className={classes.modal}
+      onTouchMove={handleTouchMovePlayer}
+    >
       <div
         onClick={handleBodyClick}
         ref={swiperRef}
@@ -98,6 +115,7 @@ export const ModalPlayer = () => {
           </button>
         </div>
         <Swiper
+          ref={swiperRef}
           className={classes.mySwiper}
           modules={[Navigation]}
           slidesPerView={1}
@@ -107,10 +125,12 @@ export const ModalPlayer = () => {
             prevEl: navigationPrevRef.current,
           }}
           initialSlide={initialSlide}
+          allowSlidePrev={!isSeeking}
+          allowSlideNext={!isSeeking}
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
-              {podcast.id === id && <Player />}
+              {podcast.id === id && <Player isSeeking={isSeeking} setIsSeeking={setIsSeeking} />}
             </SwiperSlide>
           ))}
           <button
