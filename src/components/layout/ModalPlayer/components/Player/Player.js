@@ -8,7 +8,7 @@ import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
 import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
 
-export const Player = () => {
+export const Player = ({ isSeeking, setIsSeeking }) => {
   const { theme } = useSelector((state) => state.themeReducer);
   const thumbRef = useRef();
   const progressRef = useRef();
@@ -83,12 +83,6 @@ export const Player = () => {
     audio.currentTime = changedCurrentTime;
   };
 
-  const handleThumbTouch = (event) => {
-    // event.preventDefault();
-    event.stopPropagation();
-    console.log('перемотка')
-  };
-
   const handleVolumeChange = (event) => {
     setStateVolum(event.target.value / 100);
     audio.volume = event.target.value / 100;
@@ -99,8 +93,57 @@ export const Player = () => {
     event.stopPropagation();
   };
 
+
+  // Это обработчики событий касания для Player
+  const handleTouchMovePlayer = (event) => {
+    // console.log('переключение на соседний трек, move');
+  };
+  const handleTouchStartPlayer = (event) => {
+    // console.log('переключение на соседний трек,start');
+  };
+  const handleTouchEndPlayer = (event) => {
+    // console.log('переключение на соседний трек, end');
+  };
+  const handleTouchCancelPlayer = (event) => {
+    console.log('переключение на соседний трек, cancel');
+  };
+  //-----------------------------------------------
+
+  // Это обработчики событий касания для прогресса
+  const handleTouchMoveProgress = (event) => {
+    // console.log('перемотка внутри, touchMove');
+    event.stopPropagation();
+    setIsSeeking(true);
+    // console.log('isSeeking - ' + isSeeking);
+  };
+
+  const handleTouchStartProgress = (event) => {
+
+    event.stopPropagation();
+    setIsSeeking(true);
+    // console.log('isSeeking - ' + isSeeking);
+  };
+  const handleTouchEndProgress = (event) => {
+    // console.log('перемотка внутри, touchEnd');
+    event.stopPropagation();
+    setIsSeeking(false);
+    // console.log('isSeeking - ' + isSeeking);
+  };
+  const handleTouchCancelProgress = (event) => {
+    console.log('перемотка внутри трека, touchCancel');
+    event.stopPropagation();
+    setIsSeeking(false);
+    console.log('isSeeking - ' + isSeeking);
+  };
+
   return (
-    <div className={classNamePlayer}>
+    <div
+      className={classNamePlayer}
+      onTouchMove={handleTouchMovePlayer}
+      onTouchStart={handleTouchStartPlayer}
+      onTouchEnd={handleTouchEndPlayer}
+      onTouchCancel={handleTouchCancelPlayer}
+    >
       <div className={classes.wrapper}>
         <div className={classes.image}>
           <img src={podcast?.image?.src} alt={podcast?.image?.alternate} />
@@ -114,7 +157,7 @@ export const Player = () => {
             />
             <div
               ref={thumbRef}
-              onClick={handleThumbTouch}
+              // onClick={handleThumbTouch}
               className={classes.thumb}
             >
             </div>
@@ -127,9 +170,10 @@ export const Player = () => {
             step="any"
             value={`${currentTime / duration}`}
             onInput={handleProgressChange}
-            onTouchMove={handleThumbTouch}
-            onTouchStart={handleThumbTouch}
-            onTouchCancel={handleThumbTouch}
+            onTouchMove={handleTouchMoveProgress}
+            onTouchStart={handleTouchStartProgress}
+            onTouchEnd={handleTouchEndProgress}
+            onTouchCancel={handleTouchCancelProgress}
           />
         </label>
 
