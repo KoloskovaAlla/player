@@ -84,22 +84,10 @@ export const ModalPlayer = () => {
 
   const [isSeeking, setIsSeeking] = useState(false);
 
-  useEffect(() => {
-    console.log('isSeeking - ' + isSeeking)
-    if (isSeeking) {
-      // сюда надо добавить код, чтобы слайды не менялись
-    }
-  }, [isSeeking])
-
-  const handleTouchMovePlayer = (event) => {
-    // console.log('переключение на соседний трек, move');
-  };
-
   if (podcasts) return (
     <div
       onClick={handleModalClick}
       className={classes.modal}
-      onTouchMove={handleTouchMovePlayer}
     >
       <div
         onClick={handleBodyClick}
