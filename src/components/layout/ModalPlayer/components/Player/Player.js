@@ -93,42 +93,21 @@ export const Player = ({ isSeeking, setIsSeeking }) => {
     event.stopPropagation();
   };
 
-
-  // Это обработчики событий касания для Player
-  const handleTouchMovePlayer = (event) => {
-    // console.log('переключение на соседний трек, move');
-  };
-  const handleTouchStartPlayer = (event) => {
-    // console.log('переключение на соседний трек,start');
-  };
-  const handleTouchEndPlayer = (event) => {
-    // console.log('переключение на соседний трек, end');
-  };
-  const handleTouchCancelPlayer = (event) => {
-    console.log('переключение на соседний трек, cancel');
-  };
-  //-----------------------------------------------
-
-  // Это обработчики событий касания для прогресса
-  const handleTouchMoveProgress = (event) => {
-    // console.log('перемотка внутри, touchMove');
+  const handleTouchMoveProgress = (event) => {   
     event.stopPropagation();
-    setIsSeeking(true);
-    // console.log('isSeeking - ' + isSeeking);
+    setIsSeeking(true);   
   };
 
   const handleTouchStartProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(true);  
+  };
 
-    event.stopPropagation();
-    setIsSeeking(true);
-    // console.log('isSeeking - ' + isSeeking);
-  };
   const handleTouchEndProgress = (event) => {
-    // console.log('перемотка внутри, touchEnd');
     event.stopPropagation();
-    setIsSeeking(false);
-    // console.log('isSeeking - ' + isSeeking);
+    setIsSeeking(false);   
   };
+
   const handleTouchCancelProgress = (event) => {
     console.log('перемотка внутри трека, touchCancel');
     event.stopPropagation();
@@ -138,11 +117,7 @@ export const Player = ({ isSeeking, setIsSeeking }) => {
 
   return (
     <div
-      className={classNamePlayer}
-      onTouchMove={handleTouchMovePlayer}
-      onTouchStart={handleTouchStartPlayer}
-      onTouchEnd={handleTouchEndPlayer}
-      onTouchCancel={handleTouchCancelPlayer}
+      className={classNamePlayer}     
     >
       <div className={classes.wrapper}>
         <div className={classes.image}>
@@ -156,8 +131,7 @@ export const Player = ({ isSeeking, setIsSeeking }) => {
               className={classes.progress}
             />
             <div
-              ref={thumbRef}
-              // onClick={handleThumbTouch}
+              ref={thumbRef}             
               className={classes.thumb}
             >
             </div>
