@@ -118,7 +118,7 @@ export const ModalPlayer = () => {
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
-              {podcast.id === id && <Player isSeeking={isSeeking} setIsSeeking={setIsSeeking} />}
+              {podcast.id === id && <Player setIsSeeking={setIsSeeking} />}
             </SwiperSlide>
           ))}
           <button
