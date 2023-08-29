@@ -8,7 +8,7 @@ import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
 import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
 
-export const Player = ({ isSeeking, setIsSeeking }) => {
+export const Player = ({ setIsSeeking }) => {
   const { theme } = useSelector((state) => state.themeReducer);
   const thumbRef = useRef();
   const progressRef = useRef();
@@ -111,8 +111,7 @@ export const Player = ({ isSeeking, setIsSeeking }) => {
   const handleTouchCancelProgress = (event) => {
     console.log('перемотка внутри трека, touchCancel');
     event.stopPropagation();
-    setIsSeeking(false);
-    console.log('isSeeking - ' + isSeeking);
+    setIsSeeking(false);   
   };
 
   return (
