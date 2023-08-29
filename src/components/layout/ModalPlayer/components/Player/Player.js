@@ -86,11 +86,33 @@ export const Player = ({ setIsSeeking }) => {
   const handleVolumeChange = (event) => {
     setStateVolum(event.target.value / 100);
     audio.volume = event.target.value / 100;
+  }; 
+
+  const [isChangingVolume, setIsChangingVolume] = useState(false);
+
+  useEffect(() => {
+     console.log(isChangingVolume);
+  }, [isChangingVolume]);
+
+  const handleVolumeThumbMove = (event) => {   
+    event.stopPropagation();
+    setIsChangingVolume(true);   
   };
 
-  const handleVolumeThumbTouch = (event) => {
-    event.preventDefault();
+  const handleVolumeThumbStart = (event) => {   
     event.stopPropagation();
+    setIsChangingVolume(true);     
+  };
+
+  const handleVolumeThumbEnd = (event) => {    
+    event.stopPropagation();
+    setIsChangingVolume(false);    
+  };
+
+  const handleVolumeThumbCancel = (event) => {    
+    event.stopPropagation();
+    setIsChangingVolume(false); 
+    console.log(isChangingVolume);    
   };
 
   const handleTouchMoveProgress = (event) => {   
@@ -188,11 +210,11 @@ export const Player = ({ setIsSeeking }) => {
                 style={{ width: `${Math.round(statevolum * 100)}%`, height: '5px', background: '#333' }}>
               </div>
               <div
-                onTouchMove={handleVolumeThumbTouch}
-                onTouchStart={handleVolumeThumbTouch}
-                onTouchEnd={handleVolumeThumbTouch}
-                onTouchCancel={handleVolumeThumbTouch}
-                onClick={handleVolumeThumbTouch}
+                onTouchMove={handleVolumeThumbMove}
+                onTouchStart={handleVolumeThumbStart}
+                onTouchEnd={handleVolumeThumbEnd}
+                onTouchCancel={handleVolumeThumbCancel}
+                // onClick={handleVolumeThumbTouch}
                 className={classes.volumeThumb}
                 style={{ left: `${Math.round(statevolum * 100)}%` }}
               >
@@ -203,10 +225,10 @@ export const Player = ({ setIsSeeking }) => {
               value={Math.round(statevolum * 100)}
               type="range" name="volBar" id="volBar"
               onChange={handleVolumeChange}
-              onTouchMove={handleVolumeThumbTouch}
-              onTouchStart={handleVolumeThumbTouch}
-              onTouchEnd={handleVolumeThumbTouch}
-              onTouchCancel={handleVolumeThumbTouch}
+              onTouchMove={handleVolumeThumbMove}
+              onTouchStart={handleVolumeThumbStart}
+              onTouchEnd={handleVolumeThumbEnd}
+              onTouchCancel={handleVolumeThumbCancel}
             />
           </label>
           <IconMaxSound className={classes.maxsound} />
