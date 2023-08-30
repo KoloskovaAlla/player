@@ -83,6 +83,13 @@ export const ModalPlayer = () => {
   }, [id]);
 
   const [isSeeking, setIsSeeking] = useState(false);
+  const [isChangingVolume, setIsChangingVolume] = useState(false);
+
+  const [allowChangeSlide, setAllowChangeSlide] = useState(false);
+
+  useEffect(() => {
+    setAllowChangeSlide(!isSeeking && isChangingVolume);
+  }, [isSeeking, setIsSeeking]);
 
   if (podcasts) return (
     <div
@@ -113,12 +120,12 @@ export const ModalPlayer = () => {
             prevEl: navigationPrevRef.current,
           }}
           initialSlide={initialSlide}
-          allowSlidePrev={!isSeeking}
-          allowSlideNext={!isSeeking}
+          allowSlidePrev={allowChangeSlide}
+          allowSlideNext={allowChangeSlide}
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
-              {podcast.id === id && <Player setIsSeeking={setIsSeeking} />}
+              {podcast.id === id && <Player setIsSeeking={setIsSeeking} setIsChangingVolume={setIsChangingVolume} />}
             </SwiperSlide>
           ))}
           <button

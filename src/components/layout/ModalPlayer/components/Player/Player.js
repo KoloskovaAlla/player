@@ -8,7 +8,7 @@ import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
 import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
 
-export const Player = ({ setIsSeeking }) => {
+export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useSelector((state) => state.themeReducer);
   const thumbRef = useRef();
   const progressRef = useRef();
@@ -86,59 +86,52 @@ export const Player = ({ setIsSeeking }) => {
   const handleVolumeChange = (event) => {
     setStateVolum(event.target.value / 100);
     audio.volume = event.target.value / 100;
-  }; 
-
-  const [isChangingVolume, setIsChangingVolume] = useState(false);
-
-  useEffect(() => {
-     console.log(isChangingVolume);
-  }, [isChangingVolume]);
-
-  const handleVolumeThumbMove = (event) => {   
-    event.stopPropagation();
-    setIsChangingVolume(true);   
   };
 
-  const handleVolumeThumbStart = (event) => {   
+  const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(true);     
+    setIsChangingVolume(true);
   };
 
-  const handleVolumeThumbEnd = (event) => {    
+  const handleVolumeThumbStart = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(false);    
+    setIsChangingVolume(true);
   };
 
-  const handleVolumeThumbCancel = (event) => {    
+  const handleVolumeThumbEnd = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(false); 
-    console.log(isChangingVolume);    
+    setIsChangingVolume(false);
   };
 
-  const handleTouchMoveProgress = (event) => {   
+  const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
-    setIsSeeking(true);   
+    setIsChangingVolume(false);
+  };
+
+  const handleTouchMoveProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(true);
   };
 
   const handleTouchStartProgress = (event) => {
     event.stopPropagation();
-    setIsSeeking(true);  
+    setIsSeeking(true);
   };
 
   const handleTouchEndProgress = (event) => {
     event.stopPropagation();
-    setIsSeeking(false);   
+    setIsSeeking(false);
   };
 
   const handleTouchCancelProgress = (event) => {
     console.log('перемотка внутри трека, touchCancel');
     event.stopPropagation();
-    setIsSeeking(false);   
+    setIsSeeking(false);
   };
 
   return (
     <div
-      className={classNamePlayer}     
+      className={classNamePlayer}
     >
       <div className={classes.wrapper}>
         <div className={classes.image}>
@@ -152,7 +145,7 @@ export const Player = ({ setIsSeeking }) => {
               className={classes.progress}
             />
             <div
-              ref={thumbRef}             
+              ref={thumbRef}
               className={classes.thumb}
             >
             </div>
