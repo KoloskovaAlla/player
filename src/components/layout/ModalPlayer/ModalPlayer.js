@@ -121,8 +121,8 @@ export const ModalPlayer = () => {
             prevEl: navigationPrevRef.current,
           }}
           initialSlide={initialSlide}
-          allowSlidePrev={allowChangeSlide}
-          allowSlideNext={allowChangeSlide}
+          allowSlidePrev={!isSeeking && !isChangingVolume}
+          allowSlideNext={!isSeeking && !isChangingVolume}
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
