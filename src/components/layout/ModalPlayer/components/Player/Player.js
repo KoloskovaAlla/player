@@ -8,7 +8,7 @@ import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
 import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
 
-export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
+export const Player = ({ setIsSeeking, setIsChangingVolume, isChangingVolume }) => {
   const { theme } = useSelector((state) => state.themeReducer);
   const thumbRef = useRef();
   const progressRef = useRef();
@@ -88,24 +88,29 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     audio.volume = event.target.value / 100;
   };
 
+
   const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
+    console.log('move')
   };
 
   const handleVolumeThumbStart = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
+    console.log('start')
   };
 
   const handleVolumeThumbEnd = (event) => {
     event.stopPropagation();
     setIsChangingVolume(false);
+    console.log('end')
   };
 
   const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
     setIsChangingVolume(false);
+    console.log('cancel')
   };
 
   const handleTouchMoveProgress = (event) => {
