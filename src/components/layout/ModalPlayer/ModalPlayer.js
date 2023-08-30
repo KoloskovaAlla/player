@@ -88,7 +88,7 @@ export const ModalPlayer = () => {
   const [allowChangeSlide, setAllowChangeSlide] = useState(false);
 
   useEffect(() => {
-    setAllowChangeSlide(!isSeeking && isChangingVolume);
+    setAllowChangeSlide(!isSeeking && !isChangingVolume);
   }, [isSeeking, setIsSeeking]);
 
   if (podcasts) return (
