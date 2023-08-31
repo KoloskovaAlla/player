@@ -8,7 +8,7 @@ import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
 import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
 
-export const Player = ({ setIsSeeking }) => {
+export const Player = ({ setIsSeeking, setIsChangingVolume, isChangingVolume }) => {
   const { theme } = useSelector((state) => state.themeReducer);
   const thumbRef = useRef();
   const progressRef = useRef();
@@ -88,35 +88,55 @@ export const Player = ({ setIsSeeking }) => {
     audio.volume = event.target.value / 100;
   };
 
-  const handleVolumeThumbTouch = (event) => {
-    event.preventDefault();
+
+  const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
+    setIsChangingVolume(true);
+    console.log('move')
   };
 
-  const handleTouchMoveProgress = (event) => {   
+  const handleVolumeThumbStart = (event) => {
     event.stopPropagation();
-    setIsSeeking(true);   
+    setIsChangingVolume(true);
+    console.log('start')
+  };
+
+  const handleVolumeThumbEnd = (event) => {
+    event.stopPropagation();
+    setIsChangingVolume(false);
+    console.log('end')
+  };
+
+  const handleVolumeThumbCancel = (event) => {
+    event.stopPropagation();
+    setIsChangingVolume(false);
+    console.log('cancel')
+  };
+
+  const handleTouchMoveProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(true);
   };
 
   const handleTouchStartProgress = (event) => {
     event.stopPropagation();
-    setIsSeeking(true);  
+    setIsSeeking(true);
   };
 
   const handleTouchEndProgress = (event) => {
     event.stopPropagation();
-    setIsSeeking(false);   
+    setIsSeeking(false);
   };
 
   const handleTouchCancelProgress = (event) => {
     console.log('перемотка внутри трека, touchCancel');
     event.stopPropagation();
-    setIsSeeking(false);   
+    setIsSeeking(false);
   };
 
   return (
     <div
-      className={classNamePlayer}     
+      className={classNamePlayer}
     >
       <div className={classes.wrapper}>
         <div className={classes.image}>
@@ -130,7 +150,7 @@ export const Player = ({ setIsSeeking }) => {
               className={classes.progress}
             />
             <div
-              ref={thumbRef}             
+              ref={thumbRef}
               className={classes.thumb}
             >
             </div>
@@ -188,11 +208,11 @@ export const Player = ({ setIsSeeking }) => {
                 style={{ width: `${Math.round(statevolum * 100)}%`, height: '5px', background: '#333' }}>
               </div>
               <div
-                onTouchMove={handleVolumeThumbTouch}
-                onTouchStart={handleVolumeThumbTouch}
-                onTouchEnd={handleVolumeThumbTouch}
-                onTouchCancel={handleVolumeThumbTouch}
-                onClick={handleVolumeThumbTouch}
+                onTouchMove={handleVolumeThumbMove}
+                onTouchStart={handleVolumeThumbStart}
+                onTouchEnd={handleVolumeThumbEnd}
+                onTouchCancel={handleVolumeThumbCancel}
+                // onClick={handleVolumeThumbTouch}
                 className={classes.volumeThumb}
                 style={{ left: `${Math.round(statevolum * 100)}%` }}
               >
@@ -203,10 +223,10 @@ export const Player = ({ setIsSeeking }) => {
               value={Math.round(statevolum * 100)}
               type="range" name="volBar" id="volBar"
               onChange={handleVolumeChange}
-              onTouchMove={handleVolumeThumbTouch}
-              onTouchStart={handleVolumeThumbTouch}
-              onTouchEnd={handleVolumeThumbTouch}
-              onTouchCancel={handleVolumeThumbTouch}
+              onTouchMove={handleVolumeThumbMove}
+              onTouchStart={handleVolumeThumbStart}
+              onTouchEnd={handleVolumeThumbEnd}
+              onTouchCancel={handleVolumeThumbCancel}
             />
           </label>
           <IconMaxSound className={classes.maxsound} />
