@@ -1,38 +1,35 @@
-import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
-import { useDispatch } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css'; // Импорт стилей
-import { Navigation } from 'swiper';
-import { throttle } from 'utils/helpers';
-import { Player } from 'components/layout/ModalPlayer/components/Player';
-import { ReactComponent as IconPrev } from './assets/arrow_drop_left.svg';
-import { ReactComponent as IconNext } from './assets/arrow_drop_right.svg';
-import { ReactComponent as IconClose } from './assets/dell.svg';
 import classes from './ModalPlayer.module.scss';
-import { setPodcast } from 'store/slices/currentPodcastSlice';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css'; 
+import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
+import { Player } from 'components/layout/ModalPlayer/components/Player';
+import { throttle } from 'utils/helpers';
+import {  IconPrev, IconNext, IconClose } from './assets';
 
 export const ModalPlayer = () => {
   const dispatch = useDispatch();
-
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
-  const swiperRef = useRef(null);
-
-  const { podcastsData: podcasts } = usePodcasts();
-  const { id, setId } = useCurrentPodcast();
-  const { setIsModalOpen } = useModal();
-
-  const [initialSlide, setInitialSlide] = useState(id - 1);
+  
   const [resize, setResize] = useState(false);
-
-  const length = Object.keys(podcasts).length;
   const windowWidth = window.innerWidth;
-
   const handleWindowResize = () => {
     resize ? setResize(false) : setResize(true);
   };
   const optimizedHandler = throttle(handleWindowResize, 250);
+
+  const { setIsModalOpen } = useModal();
+  const { podcastsData: podcasts } = usePodcasts();
+  const length = Object.keys(podcasts).length;
+  
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+  const swiperRef = useRef(null); 
+  
+  const { id, setId, setPodcast } = useCurrentPodcast();
+  const [initialSlide, setInitialSlide] = useState(id - 1);
+
   window.addEventListener('resize', optimizedHandler);
 
   if (swiperRef.current) swiperRef.current.style.width = `${windowWidth - 30}px`;
