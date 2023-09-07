@@ -12,8 +12,6 @@
 }
 
 .wrapper {
-  // position: relative;
-  // width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -27,23 +25,12 @@
 }
 
 .close {
-  // position: absolute;
-  // right: 10px;
-  // top: 10px;
   display: flex;
   justify-content: end;
-
-  // svg {
-  //   margin-right: 10px;
-  //   margin-left: auto;
-  // }
-
 }
 
 .mySwiper {
-  // position: absolute;
   margin: 0 auto;
-  // z-index: 10;
 }
 
 .prev,
@@ -54,6 +41,18 @@
   svg {
     height: 50px;
     width: 50px;
+  }
+}
+
+.disablePrev {
+  svg {
+    fill: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.disableNext {
+  svg {
+    fill: rgba(0, 0, 0, 0.5);
   }
 }
 

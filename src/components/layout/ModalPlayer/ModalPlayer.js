@@ -1,38 +1,36 @@
-import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
-import { useDispatch } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css'; // Импорт стилей
-import { Navigation } from 'swiper';
-import { throttle } from 'utils/helpers';
-import { Player } from 'components/layout/ModalPlayer/components/Player';
-import { ReactComponent as IconPrev } from './assets/arrow_drop_left.svg';
-import { ReactComponent as IconNext } from './assets/arrow_drop_right.svg';
-import { ReactComponent as IconClose } from './assets/dell.svg';
 import classes from './ModalPlayer.module.scss';
-import { setPodcast } from 'store/slices/currentPodcastSlice';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Navigation } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
+import { Player } from 'components/layout/ModalPlayer/components/Player';
+import { throttle } from 'utils/helpers';
+import { IconPrev, IconNext, IconClose } from './assets';
+import { classNames } from 'utils/helpers';
 
 export const ModalPlayer = () => {
   const dispatch = useDispatch();
+
+  const [resize, setResize] = useState(false);
+  const windowWidth = window.innerWidth;
+  const handleWindowResize = () => {
+    resize ? setResize(false) : setResize(true);
+  };
+  const optimizedHandler = throttle(handleWindowResize, 250);
+
+  const { setIsModalOpen } = useModal();
+  const { podcastsData: podcasts } = usePodcasts();
+  const length = Object.keys(podcasts).length;
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const swiperRef = useRef(null);
 
-  const { podcastsData: podcasts } = usePodcasts();
-  const { id, setId } = useCurrentPodcast();
-  const { setIsModalOpen } = useModal();
-
+  const { id, setId, setPodcast } = useCurrentPodcast();
   const [initialSlide, setInitialSlide] = useState(id - 1);
-  const [resize, setResize] = useState(false);
 
-  const length = Object.keys(podcasts).length;
-  const windowWidth = window.innerWidth;
-
-  const handleWindowResize = () => {
-    resize ? setResize(false) : setResize(true);
-  };
-  const optimizedHandler = throttle(handleWindowResize, 250);
   window.addEventListener('resize', optimizedHandler);
 
   if (swiperRef.current) swiperRef.current.style.width = `${windowWidth - 30}px`;
@@ -70,13 +68,23 @@ export const ModalPlayer = () => {
     };
   };
 
-  const handleButtonPrevClick = () => {
-    if (id === 1) return;
-  };
+  // const handleButtonPrevClick = () => {
+  //   if (id === 1) return;
+  // };
 
-  const handleButtonNextClick = () => {
-    if (id === length) return;
-  };
+  // const handleButtonNextClick = () => {
+  //   if (id === length) return;
+  // };
+
+  // const isPrevDisabled = id === 1; 
+  // const isNextDisabled = id === length;
+  const [isPrevDisabled, setIsPrevDisabled] = useState(false);
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
+
+  useEffect(() => {
+    if (id === 1) setIsPrevDisabled(true);
+    if (id === length) setIsNextDisabled(true);
+  }, [id, length]);
 
   useEffect(() => {
     setInitialSlide(initialSlide - 1);
@@ -90,6 +98,14 @@ export const ModalPlayer = () => {
   useEffect(() => {
     setAllowChangeSlide(!isSeeking && !isChangingVolume);
   }, [isSeeking, isChangingVolume]);
+
+  const prevClassNames = classNames(classes.prev, {
+    [classes.disablePrev]: isPrevDisabled,
+  });
+
+  const nextClassNames = classNames(classes.next, {
+    [classes.disableNext]: isNextDisabled,
+  });
 
 
   if (podcasts) return (
@@ -123,6 +139,7 @@ export const ModalPlayer = () => {
           initialSlide={initialSlide}
           allowSlidePrev={allowChangeSlide}
           allowSlideNext={allowChangeSlide}
+          speed={0}
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
@@ -136,16 +153,18 @@ export const ModalPlayer = () => {
             </SwiperSlide>
           ))}
           <button
-            onClick={handleButtonPrevClick}
+            // onClick={handleButtonPrevClick}
             ref={navigationPrevRef}
-            className={classes.prev}
+            className={prevClassNames}
+            disabled={isPrevDisabled}
           >
             <IconPrev />
           </button>
           <button
-            onClick={handleButtonNextClick}
+            // onClick={handleButtonNextClick}
             ref={navigationNextRef}
-            className={classes.next}
+            className={nextClassNames}
+            disabled={isNextDisabled}
           >
             <IconNext />
           </button>
