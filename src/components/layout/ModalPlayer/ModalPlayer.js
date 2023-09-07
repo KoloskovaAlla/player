@@ -8,6 +8,7 @@ import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
 import { Player } from 'components/layout/ModalPlayer/components/Player';
 import { throttle } from 'utils/helpers';
 import { IconPrev, IconNext, IconClose } from './assets';
+import { classNames } from 'utils/helpers';
 
 export const ModalPlayer = () => {
   const dispatch = useDispatch();
@@ -98,6 +99,14 @@ export const ModalPlayer = () => {
     setAllowChangeSlide(!isSeeking && !isChangingVolume);
   }, [isSeeking, isChangingVolume]);
 
+  const prevClassNames = classNames(classes.prev, {
+    [classes.disablePrev]: isPrevDisabled,
+  });
+
+  const nextClassNames = classNames(classes.next, {
+    [classes.disableNext]: isNextDisabled,
+  });
+
 
   if (podcasts) return (
     <div
@@ -145,7 +154,7 @@ export const ModalPlayer = () => {
           <button
             // onClick={handleButtonPrevClick}
             ref={navigationPrevRef}
-            className={classes.prev}
+            className={prevClassNames}
             disabled={isPrevDisabled}
           >
             <IconPrev />
@@ -153,7 +162,7 @@ export const ModalPlayer = () => {
           <button
             // onClick={handleButtonNextClick}
             ref={navigationNextRef}
-            className={classes.next}
+            className={nextClassNames}
             disabled={isNextDisabled}
           >
             <IconNext />
