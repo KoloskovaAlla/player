@@ -84,7 +84,7 @@ export const ModalPlayer = () => {
   useEffect(() => {
     if (id === 1) setIsPrevDisabled(true);
     if (id === length) setIsNextDisabled(true);
-  }, [id]);
+  }, [id, length]);
 
   useEffect(() => {
     setInitialSlide(initialSlide - 1);
@@ -139,6 +139,7 @@ export const ModalPlayer = () => {
           initialSlide={initialSlide}
           allowSlidePrev={allowChangeSlide}
           allowSlideNext={allowChangeSlide}
+          speed={0}
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
