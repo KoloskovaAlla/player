@@ -82,8 +82,8 @@ export const ModalPlayer = () => {
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 
   useEffect(() => {
-    if (id === 1) setIsPrevDisabled(true);
-    if (id === length) setIsNextDisabled(true);
+    if (id === 1) setIsPrevDisabled(true); else  setIsPrevDisabled(false);
+    if (id === length) setIsNextDisabled(true); else setIsNextDisabled(false);
   }, [id, length]);
 
   useEffect(() => {
