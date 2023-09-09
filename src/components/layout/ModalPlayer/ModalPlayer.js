@@ -21,7 +21,7 @@ export const ModalPlayer = () => {
   const [resize, setResize] = useState(false);
   const windowWidth = window.innerWidth;  
   const handleWindowResize = () => {
-    resize ? setResize(false) : setResize(true);
+    resize ? setResize(false) : setResize(true)
   };
   const optimizedHandler = throttle(handleWindowResize, 250);
 
@@ -36,20 +36,14 @@ export const ModalPlayer = () => {
   };
 
   const [initialSlide, setInitialSlide] = useState(id - 1);
-  const handleSlideChange = (event) => {
-    if (id - 1 === event.activeIndex) return;
 
-    if (id - 1 < event.activeIndex) {
-      dispatch(setId(id + 1));
-      const podcast = podcasts[`podcast${id + 1}`];
-      dispatch(setPodcast(podcast));
-    }
-    else {
-      dispatch(setId(id - 1));
-      const podcast = podcasts[`podcast${id - 1}`];
-      dispatch(setPodcast(podcast));
-    };
-  };  
+  const handleSlideChange = ({activeIndex}) => {    
+    const newId = activeIndex + 1;
+    const podcast = podcasts[`podcast${newId}`];
+    
+    dispatch(setId(newId));
+    dispatch(setPodcast(podcast));
+  };
 
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
@@ -87,8 +81,7 @@ export const ModalPlayer = () => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('resize', optimizedHandler);
-    // Удаляем обработчик события при размонтировании компонента
+    window.addEventListener('resize', optimizedHandler);    
     return () => {
       window.removeEventListener('resize', optimizedHandler);
     };
