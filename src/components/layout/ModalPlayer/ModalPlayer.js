@@ -38,9 +38,8 @@ export const ModalPlayer = () => {
   const [initialSlide, setInitialSlide] = useState(id - 1);
 
   const handleSlideChange = ({activeIndex}) => {    
-    const newId = activeIndex + 1;
-    const podcast = podcasts[`podcast${newId}`];
-    
+    const newId = activeIndex + 1;   
+    const podcast = podcasts[`podcast${newId}`];    
     dispatch(setId(newId));
     dispatch(setPodcast(podcast));
   };
@@ -53,7 +52,7 @@ export const ModalPlayer = () => {
   }, [id, length]);
 
   useEffect(() => {
-    setInitialSlide(initialSlide - 1);
+    setInitialSlide(id);
   }, [id]);
 
   const [isSeeking, setIsSeeking] = useState(false);
