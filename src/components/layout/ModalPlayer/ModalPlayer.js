@@ -13,74 +13,40 @@ import { classNames } from 'utils/helpers';
 export const ModalPlayer = () => {
   const dispatch = useDispatch();
 
-  const [resize, setResize] = useState(false);
-  const windowWidth = window.innerWidth;
-  const handleWindowResize = () => {
-    resize ? setResize(false) : setResize(true);
-  };
-  const optimizedHandler = throttle(handleWindowResize, 250);
-
   const { setIsModalOpen } = useModal();
   const { podcastsData: podcasts } = usePodcasts();
+  const { id, setId, setPodcast } = useCurrentPodcast();
   const length = Object.keys(podcasts).length;
 
-  const navigationPrevRef = useRef(null);
-  const navigationNextRef = useRef(null);
-  const swiperRef = useRef(null);
-
-  const { id, setId, setPodcast } = useCurrentPodcast();
-  const [initialSlide, setInitialSlide] = useState(id - 1);
-
-  window.addEventListener('resize', optimizedHandler);
-
-  if (swiperRef.current) swiperRef.current.style.width = `${windowWidth - 30}px`;
-
-  useEffect(() => {
-    if (!swiperRef.current) return;
-    if (swiperRef.current) swiperRef.current.style.width = `${windowWidth - 30}px`;
-  }, [resize, windowWidth]);
+  const [resize, setResize] = useState(false);
+  const windowWidth = window.innerWidth;  
+  const handleWindowResize = () => {
+    resize ? setResize(false) : setResize(true)
+  };
+  const optimizedHandler = throttle(handleWindowResize, 250);
 
   const handleCloseClick = () => {
     dispatch(setIsModalOpen(false));
   };
-
   const handleModalClick = () => {
     dispatch(setIsModalOpen(false));
   }
-
   const handleBodyClick = (event) => {
     event.stopPropagation();
   };
 
-  const handleSlideChange = (event) => {
-    if (id - 1 === event.activeIndex) return;
+  const [initialSlide, setInitialSlide] = useState(id - 1);
 
-    if (id - 1 < event.activeIndex) {
-      dispatch(setId(id + 1));
-      const podcast = podcasts[`podcast${id + 1}`];
-      dispatch(setPodcast(podcast));
-    }
-
-    else {
-      dispatch(setId(id - 1));
-      const podcast = podcasts[`podcast${id - 1}`];
-      dispatch(setPodcast(podcast));
-    };
+  const handleSlideChange = ({activeIndex}) => {    
+    const newId = activeIndex + 1;
+    const podcast = podcasts[`podcast${newId}`];
+    
+    dispatch(setId(newId));
+    dispatch(setPodcast(podcast));
   };
 
-  // const handleButtonPrevClick = () => {
-  //   if (id === 1) return;
-  // };
-
-  // const handleButtonNextClick = () => {
-  //   if (id === length) return;
-  // };
-
-  // const isPrevDisabled = id === 1; 
-  // const isNextDisabled = id === length;
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
-
   useEffect(() => {
     if (id === 1) setIsPrevDisabled(true); else  setIsPrevDisabled(false);
     if (id === length) setIsNextDisabled(true); else setIsNextDisabled(false);
@@ -94,7 +60,6 @@ export const ModalPlayer = () => {
   const [isChangingVolume, setIsChangingVolume] = useState(false);
 
   const [allowChangeSlide, setAllowChangeSlide] = useState(true);
-
   useEffect(() => {
     setAllowChangeSlide(!isSeeking && !isChangingVolume);
   }, [isSeeking, isChangingVolume]);
@@ -102,11 +67,25 @@ export const ModalPlayer = () => {
   const prevClassNames = classNames(classes.prev, {
     [classes.disablePrev]: isPrevDisabled,
   });
-
   const nextClassNames = classNames(classes.next, {
     [classes.disableNext]: isNextDisabled,
   });
 
+  useEffect(() => {
+    if (!swiperRef.current) return;
+    swiperRef.current.style.width = `${windowWidth - 30}px`;
+  }, [resize, windowWidth]);
+
+  const navigationPrevRef = useRef(null);
+  const navigationNextRef = useRef(null);
+  const swiperRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener('resize', optimizedHandler);    
+    return () => {
+      window.removeEventListener('resize', optimizedHandler);
+    };
+  }, [optimizedHandler]);
 
   if (podcasts) return (
     <div
@@ -152,16 +131,14 @@ export const ModalPlayer = () => {
               )}
             </SwiperSlide>
           ))}
-          <button
-            // onClick={handleButtonPrevClick}
+          <button           
             ref={navigationPrevRef}
             className={prevClassNames}
             disabled={isPrevDisabled}
           >
             <IconPrev />
           </button>
-          <button
-            // onClick={handleButtonNextClick}
+          <button           
             ref={navigationNextRef}
             className={nextClassNames}
             disabled={isNextDisabled}
