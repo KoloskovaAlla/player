@@ -8,7 +8,7 @@ import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
 import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
 
-export const Player = ({ setIsSeeking, setIsChangingVolume, isChangingVolume }) => {
+export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useSelector((state) => state.themeReducer);
   const thumbRef = useRef();
   const progressRef = useRef();
