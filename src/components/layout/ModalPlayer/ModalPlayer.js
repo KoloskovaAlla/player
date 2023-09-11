@@ -5,7 +5,7 @@ import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.min.css';
 import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
-import { Player } from 'components/layout/ModalPlayer/components/Player';
+import { Player } from './components/Player';
 import { throttle } from 'utils/helpers';
 import { IconPrev, IconNext, IconClose } from './assets';
 import { classNames } from 'utils/helpers';
@@ -38,9 +38,8 @@ export const ModalPlayer = () => {
   const [initialSlide, setInitialSlide] = useState(id - 1);
 
   const handleSlideChange = ({activeIndex}) => {    
-    const newId = activeIndex + 1;
-    const podcast = podcasts[`podcast${newId}`];
-    
+    const newId = activeIndex + 1;   
+    const podcast = podcasts[`podcast${newId}`];    
     dispatch(setId(newId));
     dispatch(setPodcast(podcast));
   };
@@ -48,12 +47,14 @@ export const ModalPlayer = () => {
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   useEffect(() => {
-    if (id === 1) setIsPrevDisabled(true); else  setIsPrevDisabled(false);
-    if (id === length) setIsNextDisabled(true); else setIsNextDisabled(false);
+    if (id === 1) setIsPrevDisabled(true); 
+      else setIsPrevDisabled(false);
+    if (id === length) setIsNextDisabled(true); 
+      else setIsNextDisabled(false);
   }, [id, length]);
 
   useEffect(() => {
-    setInitialSlide(initialSlide - 1);
+    setInitialSlide(id);
   }, [id]);
 
   const [isSeeking, setIsSeeking] = useState(false);
@@ -89,19 +90,19 @@ export const ModalPlayer = () => {
 
   if (podcasts) return (
     <div
-      onClick={handleModalClick}
       className={classes.modal}
+      onClick={handleModalClick}
     >
       <div
+        className={classes.wrapper}
         onClick={handleBodyClick}
         ref={swiperRef}
-        className={classes.wrapper}
       >
         <div className={classes.close}>
           <button>
             <IconClose
-              onClick={handleCloseClick}
               className={classes.play}
+              onClick={handleCloseClick}
             />
           </button>
         </div>
@@ -125,22 +126,21 @@ export const ModalPlayer = () => {
               {podcast.id === id && (
                 <Player
                   setIsSeeking={setIsSeeking}
-                  setIsChangingVolume={setIsChangingVolume}
-                  isChangingVolume={isChangingVolume}
+                  setIsChangingVolume={setIsChangingVolume}                  
                 />
               )}
             </SwiperSlide>
           ))}
           <button           
-            ref={navigationPrevRef}
             className={prevClassNames}
+            ref={navigationPrevRef}
             disabled={isPrevDisabled}
           >
             <IconPrev />
           </button>
           <button           
-            ref={navigationNextRef}
             className={nextClassNames}
+            ref={navigationNextRef}
             disabled={isNextDisabled}
           >
             <IconNext />
