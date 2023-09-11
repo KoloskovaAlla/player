@@ -89,25 +89,21 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
-    console.log('move')
   };
 
   const handleVolumeThumbStart = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(true);
-    console.log('start')
+    setIsChangingVolume(true);   
   };
 
   const handleVolumeThumbEnd = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(false);
-    console.log('end')
+    setIsChangingVolume(false);   
   };
 
   const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(false);
-    console.log('cancel')
+    setIsChangingVolume(false);   
   };
 
   const handleTouchMoveProgress = (event) => {
@@ -125,8 +121,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     setIsSeeking(false);
   };
 
-  const handleTouchCancelProgress = (event) => {
-    console.log('перемотка внутри трека, touchCancel');
+  const handleTouchCancelProgress = (event) => {  
     event.stopPropagation();
     setIsSeeking(false);
   };
@@ -143,8 +138,8 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         <label className={classes.playerProgress}>
           <div className={classes.progress_bar}>
             <div
-              ref={progressRef}
               className={classes.progress}
+              ref={progressRef}
             />
             <div
               ref={thumbRef}
