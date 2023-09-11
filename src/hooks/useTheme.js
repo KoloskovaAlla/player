@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { toggleTheme } from '../store/slices/themeSlice';
 
-const useTheme = () => {
+export const useTheme = () => {
 
   const { theme } = useSelector((state) => state.themeReducer);
 
@@ -19,5 +19,3 @@ const useTheme = () => {
 
   return { theme, toggleTheme };
 };
-
-export default useTheme;
