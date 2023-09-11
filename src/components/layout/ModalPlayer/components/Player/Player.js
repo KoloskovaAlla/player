@@ -2,10 +2,11 @@ import { useCurrentPodcast } from 'hooks';
 import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { classNames } from 'utils/helpers';
-import { ReactComponent as IconPlay } from './assets/play_test.svg';
-import { ReactComponent as IconPause } from './assets/pause_test.svg';
-import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
-import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
+// import { ReactComponent as IconPlay } from './assets/play_test.svg';
+// import { ReactComponent as IconPause } from './assets/pause_test.svg';
+// import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
+// import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
+import { IconPlay, IconPause, IconMuteSound, IconMaxSound } from './assets';
 import classes from './Player.module.scss';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
