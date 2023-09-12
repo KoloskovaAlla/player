@@ -1,6 +1,4 @@
-export { useData } from './useData';
 export { useHomePage } from './useHomePage';
-export { usePodcastsSection } from './usePodcastsSection';
 export { usePodcasts } from './usePodcasts';
 export { usePlaying } from './usePlaying';
 export { useAudio } from './useAudio';
