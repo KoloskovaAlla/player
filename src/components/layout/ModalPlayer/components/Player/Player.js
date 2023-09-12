@@ -7,7 +7,7 @@ import { IconPlay, IconPause, IconMuteSound, IconMaxSound } from './assets';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useTheme();
- 
+
   const { id, podcast } = useCurrentPodcast();
 
   const [audio, setAudio] = useState(null);
@@ -46,7 +46,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const handlePauseClick = () => {
     setIsPlaying(false);
     audio.pause();
-  }; 
+  };
 
   const handleAudioTimeUpdate = (event) => {
     const { target: { duration, currentTime } } = event;
@@ -93,17 +93,17 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
 
   const handleVolumeThumbStart = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(true);   
+    setIsChangingVolume(true);
   };
 
   const handleVolumeThumbEnd = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(false);   
+    setIsChangingVolume(false);
   };
 
   const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
-    setIsChangingVolume(false);   
+    setIsChangingVolume(false);
   };
 
   const handleTouchMoveProgress = (event) => {
@@ -121,7 +121,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     setIsSeeking(false);
   };
 
-  const handleTouchCancelProgress = (event) => {  
+  const handleTouchCancelProgress = (event) => {
     event.stopPropagation();
     setIsSeeking(false);
   };
@@ -172,7 +172,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>
         </div>
 
-        <div className={classes.navigation}>
+        <div className={classes.playbackControls}>
           {!isPlaying && (
             <button>
               <IconPlay
