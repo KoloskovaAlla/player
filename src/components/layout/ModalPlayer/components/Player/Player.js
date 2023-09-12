@@ -1,37 +1,42 @@
 import { useCurrentPodcast } from 'hooks';
-import { useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
-import { classNames } from 'utils/helpers';
-import { ReactComponent as IconPlay } from './assets/play_test.svg';
-import { ReactComponent as IconPause } from './assets/pause_test.svg';
-import { ReactComponent as IconMuteSound } from 'assets/sound_mute_fill.svg';
-import { ReactComponent as IconMaxSound } from 'assets/sound_max_fill.svg';
 import classes from './Player.module.scss';
+import { useEffect, useRef, useState } from 'react';
+import { useTheme } from 'hooks';
+import { classNames } from 'utils/helpers';
+import { IconPlay, IconPause, IconMuteSound, IconMaxSound } from './assets';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
-  const { theme } = useSelector((state) => state.themeReducer);
+  const { theme } = useTheme();
+
+  const { id, podcast } = useCurrentPodcast();
+
+  const [audio, setAudio] = useState(null);
+
+  const [currentTime, setCurrentTime] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [progress, setProgress] = useState(null);
+  const [minutes, setMinutes] = useState();
+  const [minutesLeft, setMinutesLeft] = useState();
+  const [secondsLeft, setSecondsLeft] = useState();
+  const [seconds, setSeconds] = useState();
+
+  const [statevolum, setStateVolum] = useState(0.3);
+
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const playerClassNames = classNames(classes.player, {
+    [classes.dark]: theme === 'dark',
+  });
+
   const thumbRef = useRef();
   const progressRef = useRef();
 
-  const [audio, setAudio] = useState(null);
-  const [progress, setProgress] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [duration, setDuration] = useState(null);
-  const [currentTime, setCurrentTime] = useState(null);
-  const { id, podcast } = useCurrentPodcast();
-  const [minutes, setMinutes] = useState();
-  const [minutesLeft, setMinutesLeft] = useState();
-  const [seconds, setSeconds] = useState();
-  const [secondsLeft, setSecondsLeft] = useState();
-  const [statevolum, setStateVolum] = useState(0.3);
-
-  const classNamePlayer = classNames(
-    classes.player,
-    {
-      [classes.dark]: theme === 'dark',
-    },
-    []
-  );
+  useEffect(() => {
+    if (!podcast) return;
+    const { audio: { src } } = podcast;
+    let audio = new Audio(src);
+    setAudio(audio);
+  }, [id, podcast]);
 
   const handlePlayClick = () => {
     setIsPlaying(true);
@@ -42,13 +47,6 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     setIsPlaying(false);
     audio.pause();
   };
-
-  useEffect(() => {
-    if (!podcast) return;
-    const { audio: { src } } = podcast;
-    let audio = new Audio(src);
-    setAudio(audio);
-  }, [id, podcast]);
 
   const handleAudioTimeUpdate = (event) => {
     const { target: { duration, currentTime } } = event;
@@ -88,29 +86,24 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     audio.volume = event.target.value / 100;
   };
 
-
   const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
-    console.log('move')
   };
 
   const handleVolumeThumbStart = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
-    console.log('start')
   };
 
   const handleVolumeThumbEnd = (event) => {
     event.stopPropagation();
     setIsChangingVolume(false);
-    console.log('end')
   };
 
   const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
     setIsChangingVolume(false);
-    console.log('cancel')
   };
 
   const handleTouchMoveProgress = (event) => {
@@ -129,14 +122,13 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   };
 
   const handleTouchCancelProgress = (event) => {
-    console.log('перемотка внутри трека, touchCancel');
     event.stopPropagation();
     setIsSeeking(false);
   };
 
   return (
     <div
-      className={classNamePlayer}
+      className={playerClassNames}
     >
       <div className={classes.wrapper}>
         <div className={classes.image}>
@@ -146,8 +138,8 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         <label className={classes.playerProgress}>
           <div className={classes.progress_bar}>
             <div
-              ref={progressRef}
               className={classes.progress}
+              ref={progressRef}
             />
             <div
               ref={thumbRef}
@@ -180,7 +172,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>
         </div>
 
-        <div className={classes.navigation}>
+        <div className={classes.playbackControls}>
           {!isPlaying && (
             <button>
               <IconPlay

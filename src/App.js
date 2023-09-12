@@ -1,4 +1,3 @@
-import { Header } from 'components/layout/Header';
 import { Progress } from 'components/layout/Progress';
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from 'pages/HomePage'
