@@ -1,1 +1,0 @@
-export { ModalSlider } from './ModalSlider';
