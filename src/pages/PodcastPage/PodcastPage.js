@@ -42,11 +42,9 @@ export const PodcastPage = () => {
             <div className={classes.body}>
               <h3 className={classes?.title}>{podcast.title}</h3>
               <h4 className={classes.subtitle}>{podcast.subtitle}</h4>
-              {/* {podcast?.texts?.length > 0 && podcast.texts.map((text, index) => (
-                <Text key={index} className={classes.copy}>
-                  {text}
-                </Text>
-              ))} */}
+              {podcast?.texts?.length > 0 && podcast.texts.map((text, index) => (
+                <p key={index}>{text}</p>
+              ))}
             </div>
           </div>
         </div>
