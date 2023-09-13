@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { useCurrentPodcast, usePlaying, useModal, usePosts } from 'hooks';
+import { useCurrentPodcast, usePlaying, useModal } from 'hooks';
 import Preloader from 'components/layout/Preloader';
-import Text from 'components/common/Text';
 import { ModalPlayer } from 'components/layout/ModalPlayer';
 import { ReactComponent as IconPlay } from './assets/play.svg'
 import classes from './PodcastPage.module.scss';
@@ -10,7 +9,6 @@ export const PodcastPage = () => {
   const dispatch = useDispatch();
 
   const { podcast, setKey, setId, setPodcast } = useCurrentPodcast();
-  const { isLoading } = usePosts();
   const { setIsPlaying } = usePlaying();
   const { setIsModalOpen, isModalOpen } = useModal();
 
@@ -24,7 +22,7 @@ export const PodcastPage = () => {
 
   return (
     <>
-      {isLoading && <Preloader />}
+      {/* {isLoading && <Preloader />} */}
 
       {podcast && (
         <div className={classes.podcastPage}>
@@ -44,11 +42,11 @@ export const PodcastPage = () => {
             <div className={classes.body}>
               <h3 className={classes?.title}>{podcast.title}</h3>
               <h4 className={classes.subtitle}>{podcast.subtitle}</h4>
-              {podcast?.texts?.length > 0 && podcast.texts.map((text, index) => (
+              {/* {podcast?.texts?.length > 0 && podcast.texts.map((text, index) => (
                 <Text key={index} className={classes.copy}>
                   {text}
                 </Text>
-              ))}
+              ))} */}
             </div>
           </div>
         </div>

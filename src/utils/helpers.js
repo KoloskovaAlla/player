@@ -26,49 +26,6 @@ export const scrollToTop = () => {
   scroll(timerID);
 };
 
-export const scrollToSection = (sectionTargetHash) => {
-  if (!sectionTargetHash) return;
-
-  const $header = document.querySelector('#header');
-  const $section = document.querySelector(`${sectionTargetHash}`);
-
-  const headerHeight = $header.offsetHeight;
-  const sectionTopPosition = $section.offsetTop;
-  const targetTopPosition = sectionTopPosition - headerHeight;
-  let currentTopPosition = window.pageYOffset;
-  let timerID;
-
-  const scrollToBottom = () => {
-    if (currentTopPosition < targetTopPosition) {
-      window.scrollTo(0, currentTopPosition);
-      currentTopPosition += 250;
-      timerID = setTimeout(scrollToBottom, 20);
-    } else {
-      window.scrollTo(0, targetTopPosition);
-      clearTimeout(timerID);
-    }
-  };
-
-  const scrollToTop = () => {
-    if (currentTopPosition > targetTopPosition) {
-      window.scrollTo(0, currentTopPosition);
-      currentTopPosition -= 250;
-      timerID = setTimeout(scrollToTop, 20);
-    } else {
-      window.scrollTo(0, targetTopPosition);
-      clearTimeout(timerID);
-    }
-  };
-
-  if (currentTopPosition < targetTopPosition) {
-    scrollToBottom();
-  }
-
-  if (currentTopPosition > targetTopPosition) {
-    scrollToTop();
-  }
-};
-
 export const getCurrentTime = () => {
   const date = new Date();
 
