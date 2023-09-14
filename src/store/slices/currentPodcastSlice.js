@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   // podcast: JSON.parse(localStorage.getItem('podcast')) ?? null,
   podcast: null,
-  id: localStorage.getItem('id') ?? null,
-  key: localStorage.getItem('key') ?? null,
+  podcastId: localStorage.getItem('id') ?? null,
+  podcastKey: localStorage.getItem('key') ?? null,
 };
 
 export const currentPodcastSlice = createSlice({
@@ -12,12 +12,11 @@ export const currentPodcastSlice = createSlice({
   initialState,
   reducers: {
     setPodcast: (state, action) => { state.podcast = action.payload },
-    setId: (state, action) => { state.id = action.payload },
-    setKey: (state, action) => { state.key = action.payload }
+    setPodcastId: (state, action) => { state.podcastId = action.payload },
+    setPodcastKey: (state, action) => { state.podcastKey = action.payload }
   }
-})
-
+});
 
 export const { reducer: currentPodcastReducer } = currentPodcastSlice;
 
-export const { setPodcast, setId, setKey } = currentPodcastSlice.actions;
+export const { setPodcast, setPodcastId, setPodcastKey } = currentPodcastSlice.actions;

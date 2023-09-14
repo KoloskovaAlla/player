@@ -14,16 +14,15 @@ export const ModalPlayer = () => {
   const dispatch = useDispatch();
 
   const { setIsModalOpen } = useModal();
-  const { podcastsData: podcasts } = usePodcasts();
-  const { id, setId, setPodcast } = useCurrentPodcast();
+  const { podcastsData: podcasts } = usePodcasts();  
+  const { podcastId, setPodcastId, setPodcast } = useCurrentPodcast();
   const length = Object.keys(podcasts).length;
 
-  const [resize, setResize] = useState(false);
+  const [isResize, setIsResize] = useState(false);
   const windowWidth = window.innerWidth;  
-  const handleWindowResize = () => {
-    resize ? setResize(false) : setResize(true)
-  };
-  const optimizedHandler = throttle(handleWindowResize, 250);
+  const handleWindowResize = throttle(() => {
+    isResize ? setIsResize(false) : setIsResize(true)
+  }, 250);
 
   const handleCloseClick = () => {
     dispatch(setIsModalOpen(false));
@@ -35,27 +34,27 @@ export const ModalPlayer = () => {
     event.stopPropagation();
   };
 
-  const [initialSlide, setInitialSlide] = useState(id - 1);
+  const [initialSlide, setInitialSlide] = useState(podcastId - 1);
 
   const handleSlideChange = ({activeIndex}) => {    
     const newId = activeIndex + 1;   
     const podcast = podcasts[`podcast${newId}`];    
-    dispatch(setId(newId));
+    dispatch(setPodcastId(newId));
     dispatch(setPodcast(podcast));
   };
 
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   useEffect(() => {
-    if (id === 1) setIsPrevDisabled(true); 
+    if (podcastId === 1) setIsPrevDisabled(true); 
       else setIsPrevDisabled(false);
-    if (id === length) setIsNextDisabled(true); 
+    if (podcastId === length) setIsNextDisabled(true); 
       else setIsNextDisabled(false);
-  }, [id, length]);
+  }, [podcastId, length]);
 
   useEffect(() => {
-    setInitialSlide(id);
-  }, [id]);
+    setInitialSlide(podcastId);
+  }, [podcastId]);
 
   const [isSeeking, setIsSeeking] = useState(false);
   const [isChangingVolume, setIsChangingVolume] = useState(false);
@@ -75,18 +74,18 @@ export const ModalPlayer = () => {
   useEffect(() => {
     if (!swiperRef.current) return;
     swiperRef.current.style.width = `${windowWidth - 30}px`;
-  }, [resize, windowWidth]);
+  }, [isResize, windowWidth]);
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('resize', optimizedHandler);    
+    window.addEventListener('resize', handleWindowResize);    
     return () => {
-      window.removeEventListener('resize', optimizedHandler);
+      window.removeEventListener('resize', handleWindowResize);
     };
-  }, [optimizedHandler]);
+  }, [handleWindowResize]);
 
   if (podcasts) return (
     <div
@@ -116,14 +115,14 @@ export const ModalPlayer = () => {
             nextEl: navigationNextRef.current,
             prevEl: navigationPrevRef.current,
           }}
-          initialSlide={initialSlide}
+          initialSlide={podcastId-1}
           allowSlidePrev={allowChangeSlide}
           allowSlideNext={allowChangeSlide}
           speed={0}
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
-              {podcast.id === id && (
+              {podcast.id === podcastId && (
                 <Player
                   setIsSeeking={setIsSeeking}
                   setIsChangingVolume={setIsChangingVolume}                  
