@@ -1,9 +1,8 @@
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { usePodcasts, useModal } from 'hooks';
-import { ModalPlayer } from 'components/layout/ModalPlayer';
-import { PodcastPreview } from './components';
 import classes from './PodcastsPage.module.scss';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { usePodcasts, useModal } from 'hooks';
+import { PodcastPreview, ModalPlayer } from 'components/layout';
 
 export const PodcastsPage = () => {
   const dispatch = useDispatch();
@@ -11,16 +10,12 @@ export const PodcastsPage = () => {
   const { isModalOpen } = useModal();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     dispatch(fetchPodcastsData());
   }, [dispatch, fetchPodcastsData]);
 
   if (!podcastsData) return (
     <div className={classes.wrapper}>
-      <div className={classes.nopodcasts}>Подкастов пока нет, но скоро они появятся здесь</div>
+      <div className={classes.nopodcasts}>Скоро здесь появятся треки</div>
     </div>
   );
 
