@@ -2,6 +2,7 @@ import { useCurrentPodcast } from 'hooks';
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'hooks';
+import { Progress } from './components';
 import { classNames } from 'utils/helpers';
 import { IconPlay, IconPause, IconMuteSound, IconMaxSound } from './assets';
 
@@ -161,6 +162,17 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
             onTouchCancel={handleTouchCancelProgress}
           />
         </label>
+        <Progress
+          handleProgressChange={handleProgressChange}
+          handleTouchMoveProgress={handleTouchMoveProgress}
+          handleTouchStartProgress={handleTouchStartProgress}
+          handleTouchCancelProgress={handleTouchCancelProgress}
+          currentTime={currentTime}
+          duration={duration}
+          progressRef={progressRef}
+          thumbRef={thumbRef}
+          handleTouchEndProgress={handleTouchEndProgress}
+        />
 
         <div className={classes.time}>
           <div>{minutes}:{seconds}</div>
