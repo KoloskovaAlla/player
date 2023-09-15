@@ -1,0 +1,49 @@
+@import 'scss/settings/vars.scss';
+
+.playerProgress {
+  margin-top: 15px;
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+.progress_bar {
+  margin-top: 10px;
+  height: 1.5px;
+  position: relative;
+  background: rgb(0, 133, 205);
+  border-radius: 5px;
+}
+
+.progress {
+  position: absolute;
+  top: -50%;
+  height: 3px;
+  background: rgb(0, 133, 205);
+  border-radius: 5px;
+}
+
+.thumb {
+  width: 8px;
+  height: 8px;
+  background: rgb(0, 133, 205);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-15%, -50%);
+  cursor: pointer;
+}
+
+.progress_input {
+  display: block;
+  height: 80px;
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 3;
+}
