@@ -14,12 +14,12 @@ export const ModalPlayer = () => {
   const dispatch = useDispatch();
 
   const { setIsModalOpen } = useModal();
-  const { podcastsData: podcasts } = usePodcasts();  
+  const { podcastsData: podcasts } = usePodcasts();
   const { podcastId, setPodcastId, setPodcast } = useCurrentPodcast();
   const length = Object.keys(podcasts).length;
 
   const [isResize, setIsResize] = useState(false);
-  const windowWidth = window.innerWidth;  
+  const windowWidth = window.innerWidth;
   const handleWindowResize = throttle(() => {
     isResize ? setIsResize(false) : setIsResize(true)
   }, 250);
@@ -36,9 +36,9 @@ export const ModalPlayer = () => {
 
   const [initialSlide, setInitialSlide] = useState(podcastId - 1);
 
-  const handleSlideChange = ({activeIndex}) => {    
-    const newId = activeIndex + 1;   
-    const podcast = podcasts[`podcast${newId}`];    
+  const handleSlideChange = ({ activeIndex }) => {
+    const newId = activeIndex + 1;
+    const podcast = podcasts[`podcast${newId}`];
     dispatch(setPodcastId(newId));
     dispatch(setPodcast(podcast));
   };
@@ -46,10 +46,10 @@ export const ModalPlayer = () => {
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   useEffect(() => {
-    if (podcastId === 1) setIsPrevDisabled(true); 
-      else setIsPrevDisabled(false);
-    if (podcastId === length) setIsNextDisabled(true); 
-      else setIsNextDisabled(false);
+    if (podcastId === 1) setIsPrevDisabled(true);
+    else setIsPrevDisabled(false);
+    if (podcastId === length) setIsNextDisabled(true);
+    else setIsNextDisabled(false);
   }, [podcastId, length]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const ModalPlayer = () => {
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);    
+    window.addEventListener('resize', handleWindowResize);
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
@@ -115,7 +115,7 @@ export const ModalPlayer = () => {
             nextEl: navigationNextRef.current,
             prevEl: navigationPrevRef.current,
           }}
-          initialSlide={podcastId-1}
+          initialSlide={initialSlide}
           allowSlidePrev={allowChangeSlide}
           allowSlideNext={allowChangeSlide}
           speed={0}
@@ -125,19 +125,19 @@ export const ModalPlayer = () => {
               {podcast.id === podcastId && (
                 <Player
                   setIsSeeking={setIsSeeking}
-                  setIsChangingVolume={setIsChangingVolume}                  
+                  setIsChangingVolume={setIsChangingVolume}
                 />
               )}
             </SwiperSlide>
           ))}
-          <button           
+          <button
             className={prevClassNames}
             ref={navigationPrevRef}
             disabled={isPrevDisabled}
           >
             <IconPrev />
           </button>
-          <button           
+          <button
             className={nextClassNames}
             ref={navigationNextRef}
             disabled={isNextDisabled}
