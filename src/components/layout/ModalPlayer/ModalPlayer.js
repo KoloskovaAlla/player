@@ -19,6 +19,8 @@ export const ModalPlayer = () => {
   const length = Object.keys(podcasts).length;
 
   const [isResize, setIsResize] = useState(false);
+  const [initialSlide, setInitialSlide] = useState(podcastId - 1);
+
   const windowWidth = window.innerWidth;
   const handleWindowResize = throttle(() => {
     isResize ? setIsResize(false) : setIsResize(true)
@@ -34,8 +36,6 @@ export const ModalPlayer = () => {
     event.stopPropagation();
   };
 
-  const [initialSlide, setInitialSlide] = useState(podcastId - 1);
-
   const handleSlideChange = ({ activeIndex }) => {
     const newId = activeIndex + 1;
     const podcast = podcasts[`podcast${newId}`];
@@ -50,6 +50,11 @@ export const ModalPlayer = () => {
     else setIsPrevDisabled(false);
     if (podcastId === length) setIsNextDisabled(true);
     else setIsNextDisabled(false);
+  }, [podcastId, length]);
+
+  useEffect(() => {
+    setIsPrevDisabled(podcastId === 1);
+    setIsNextDisabled(podcastId === length);
   }, [podcastId, length]);
 
   useEffect(() => {
