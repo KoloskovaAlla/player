@@ -15,15 +15,16 @@ export const ModalPlayer = () => {
 
   const { setIsModalOpen } = useModal();
   const { podcastsData: podcasts } = usePodcasts();
-  const { id, setId, setPodcast } = useCurrentPodcast();
+  const { podcastId, setPodcastId, setPodcast } = useCurrentPodcast();
   const length = Object.keys(podcasts).length;
 
-  const [resize, setResize] = useState(false);
-  const windowWidth = window.innerWidth;  
-  const handleWindowResize = () => {
-    resize ? setResize(false) : setResize(true)
-  };
-  const optimizedHandler = throttle(handleWindowResize, 250);
+  const [isResize, setIsResize] = useState(false);
+  const [initialSlide, setInitialSlide] = useState(podcastId - 1);
+
+  const windowWidth = window.innerWidth;
+  const handleWindowResize = throttle(() => {
+    isResize ? setIsResize(false) : setIsResize(true)
+  }, 250);
 
   const handleCloseClick = () => {
     dispatch(setIsModalOpen(false));
@@ -35,27 +36,30 @@ export const ModalPlayer = () => {
     event.stopPropagation();
   };
 
-  const [initialSlide, setInitialSlide] = useState(id - 1);
-
-  const handleSlideChange = ({activeIndex}) => {    
-    const newId = activeIndex + 1;   
-    const podcast = podcasts[`podcast${newId}`];    
-    dispatch(setId(newId));
+  const handleSlideChange = ({ activeIndex }) => {
+    const newId = activeIndex + 1;
+    const podcast = podcasts[`podcast${newId}`];
+    dispatch(setPodcastId(newId));
     dispatch(setPodcast(podcast));
   };
 
   const [isPrevDisabled, setIsPrevDisabled] = useState(false);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   useEffect(() => {
-    if (id === 1) setIsPrevDisabled(true); 
-      else setIsPrevDisabled(false);
-    if (id === length) setIsNextDisabled(true); 
-      else setIsNextDisabled(false);
-  }, [id, length]);
+    if (podcastId === 1) setIsPrevDisabled(true);
+    else setIsPrevDisabled(false);
+    if (podcastId === length) setIsNextDisabled(true);
+    else setIsNextDisabled(false);
+  }, [podcastId, length]);
 
   useEffect(() => {
-    setInitialSlide(id);
-  }, [id]);
+    setIsPrevDisabled(podcastId === 1);
+    setIsNextDisabled(podcastId === length);
+  }, [podcastId, length]);
+
+  useEffect(() => {
+    setInitialSlide(podcastId);
+  }, [podcastId]);
 
   const [isSeeking, setIsSeeking] = useState(false);
   const [isChangingVolume, setIsChangingVolume] = useState(false);
@@ -75,18 +79,18 @@ export const ModalPlayer = () => {
   useEffect(() => {
     if (!swiperRef.current) return;
     swiperRef.current.style.width = `${windowWidth - 30}px`;
-  }, [resize, windowWidth]);
+  }, [isResize, windowWidth]);
 
   const navigationPrevRef = useRef(null);
   const navigationNextRef = useRef(null);
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener('resize', optimizedHandler);    
+    window.addEventListener('resize', handleWindowResize);
     return () => {
-      window.removeEventListener('resize', optimizedHandler);
+      window.removeEventListener('resize', handleWindowResize);
     };
-  }, [optimizedHandler]);
+  }, [handleWindowResize]);
 
   if (podcasts) return (
     <div
@@ -123,22 +127,22 @@ export const ModalPlayer = () => {
         >
           {Object.values(podcasts).map((podcast, index) => (
             <SwiperSlide key={index}>
-              {podcast.id === id && (
+              {podcast.id === podcastId && (
                 <Player
                   setIsSeeking={setIsSeeking}
-                  setIsChangingVolume={setIsChangingVolume}                  
+                  setIsChangingVolume={setIsChangingVolume}
                 />
               )}
             </SwiperSlide>
           ))}
-          <button           
+          <button
             className={prevClassNames}
             ref={navigationPrevRef}
             disabled={isPrevDisabled}
           >
             <IconPrev />
           </button>
-          <button           
+          <button
             className={nextClassNames}
             ref={navigationNextRef}
             disabled={isNextDisabled}

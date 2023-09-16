@@ -22,15 +22,15 @@ export const PodcastPreview = ({ podcast }) => {
 
   const { setIsModalOpen } = useModal();
   const { isPlaying, setIsPlaying } = usePlaying();
-  const { setKey, setId } = useCurrentPodcast();
+  const { setPodcastKey, setPodcastId } = useCurrentPodcast();
 
   useEffect(() => {
     if (!playButtonRef.current) return;
   }, [isHover]);
 
   const handlePodcastClick = () => {
-    dispatch(setId(podcast.id));
-    dispatch(setKey(podcast.key));
+    dispatch(setPodcastId(podcast.id));
+    dispatch(setPodcastKey(podcast.key));
     dispatch(setPodcast(podcast));
     dispatch(setIsPlaying(true));
     dispatch(setIsModalOpen(true));
@@ -50,8 +50,8 @@ export const PodcastPreview = ({ podcast }) => {
   };
 
   const handleTitleClick = () => {
-    dispatch(setId(podcast.id));
-    dispatch(setKey(podcast.key));
+    dispatch(setPodcastId(podcast.id));
+    dispatch(setPodcastKey(podcast.key));
     dispatch(setPodcast(podcast));
   };
 
