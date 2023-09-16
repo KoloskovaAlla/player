@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/swiper-bundle.min.css';
+// import 'swiper/swiper-bundle.min.css';
 import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
 import { Player } from './components/Player';
 import { throttle } from 'utils/helpers';

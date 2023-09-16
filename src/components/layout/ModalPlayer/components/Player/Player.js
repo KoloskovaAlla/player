@@ -136,7 +136,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           <img src={podcast?.image?.src} alt={podcast?.image?.alternate} />
         </div>
 
-        <label className={classes.playerProgress}>
+        {/* <label className={classes.playerProgress}>
           <div className={classes.progress_bar}>
             <div
               className={classes.progress}
@@ -161,7 +161,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
             onTouchEnd={handleTouchEndProgress}
             onTouchCancel={handleTouchCancelProgress}
           />
-        </label>
+        </label> */}
         <Progress
           handleProgressChange={handleProgressChange}
           handleTouchMoveProgress={handleTouchMoveProgress}
