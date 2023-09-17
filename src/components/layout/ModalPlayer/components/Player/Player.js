@@ -107,25 +107,25 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     setIsChangingVolume(false);
   };
 
-  const handleTouchMoveProgress = (event) => {
-    event.stopPropagation();
-    setIsSeeking(true);
-  };
+  // const handleTouchMoveProgress = (event) => {
+  //   event.stopPropagation();
+  //   setIsSeeking(true);
+  // };
 
-  const handleTouchStartProgress = (event) => {
-    event.stopPropagation();
-    setIsSeeking(true);
-  };
+  // const handleTouchStartProgress = (event) => {
+  //   event.stopPropagation();
+  //   setIsSeeking(true);
+  // };
 
-  const handleTouchEndProgress = (event) => {
-    event.stopPropagation();
-    setIsSeeking(false);
-  };
+  // const handleTouchEndProgress = (event) => {
+  //   event.stopPropagation();
+  //   setIsSeeking(false);
+  // };
 
-  const handleTouchCancelProgress = (event) => {
-    event.stopPropagation();
-    setIsSeeking(false);
-  };
+  // const handleTouchCancelProgress = (event) => {
+  //   event.stopPropagation();
+  //   setIsSeeking(false);
+  // };
 
   return (
     <div
@@ -135,43 +135,14 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         <div className={classes.image}>
           <img src={podcast?.image?.src} alt={podcast?.image?.alternate} />
         </div>
-
-        {/* <label className={classes.playerProgress}>
-          <div className={classes.progress_bar}>
-            <div
-              className={classes.progress}
-              ref={progressRef}
-            />
-            <div
-              ref={thumbRef}
-              className={classes.thumb}
-            >
-            </div>
-          </div>
-          <input
-            className={classes.progress_input}
-            type="range"
-            min="0"
-            max="1"
-            step="any"
-            value={`${currentTime / duration}`}
-            onInput={handleProgressChange}
-            onTouchMove={handleTouchMoveProgress}
-            onTouchStart={handleTouchStartProgress}
-            onTouchEnd={handleTouchEndProgress}
-            onTouchCancel={handleTouchCancelProgress}
-          />
-        </label> */}
+           
         <Progress
-          handleProgressChange={handleProgressChange}
-          handleTouchMoveProgress={handleTouchMoveProgress}
-          handleTouchStartProgress={handleTouchStartProgress}
-          handleTouchCancelProgress={handleTouchCancelProgress}
+          handleProgressChange={handleProgressChange}         
           currentTime={currentTime}
           duration={duration}
           progressRef={progressRef}
-          thumbRef={thumbRef}
-          handleTouchEndProgress={handleTouchEndProgress}
+          thumbRef={thumbRef}   
+          setIsSeeking={setIsSeeking}   
         />
 
         <div className={classes.time}>
