@@ -1,16 +1,32 @@
 import classes from './Progress.module.scss';
 
 export const Progress = ({
-  handleProgressChange,
-  handleTouchMoveProgress,
-  handleTouchStartProgress,
-  handleTouchCancelProgress,
+  handleProgressChange, 
   currentTime,
   duration,
   progressRef,
-  thumbRef,
-  handleTouchEndProgress,
+  thumbRef,  
+  setIsSeeking,
 }) => {
+  const handleTouchMoveProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(true);
+  };
+
+  const handleTouchStartProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(true);
+  };
+
+  const handleTouchEndProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(false);
+  };
+
+  const handleTouchCancelProgress = (event) => {
+    event.stopPropagation();
+    setIsSeeking(false);
+  };
   return (
     <label className={classes.playerProgress}>
       <div className={classes.progress_bar}>
