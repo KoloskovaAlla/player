@@ -137,7 +137,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         </div>
            
         <Progress
-          handleProgressChange={handleProgressChange}         
+          onProgressChange={handleProgressChange}         
           currentTime={currentTime}
           duration={duration}
           progressRef={progressRef}
