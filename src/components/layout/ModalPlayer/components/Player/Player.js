@@ -2,9 +2,9 @@ import { useCurrentPodcast } from 'hooks';
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'hooks';
-import { Progress } from './components';
+import { PlaybackControl, Progress } from './components';
 import { classNames } from 'utils/helpers';
-import { IconPlay, IconPause, IconMuteSound, IconMaxSound } from './assets';
+import { IconMuteSound, IconMaxSound } from './assets';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useTheme();
@@ -105,27 +105,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
     setIsChangingVolume(false);
-  };
-
-  // const handleTouchMoveProgress = (event) => {
-  //   event.stopPropagation();
-  //   setIsSeeking(true);
-  // };
-
-  // const handleTouchStartProgress = (event) => {
-  //   event.stopPropagation();
-  //   setIsSeeking(true);
-  // };
-
-  // const handleTouchEndProgress = (event) => {
-  //   event.stopPropagation();
-  //   setIsSeeking(false);
-  // };
-
-  // const handleTouchCancelProgress = (event) => {
-  //   event.stopPropagation();
-  //   setIsSeeking(false);
-  // };
+  }; 
 
   return (
     <div
@@ -137,12 +117,12 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         </div>
            
         <Progress
-          handleProgressChange={handleProgressChange}         
-          currentTime={currentTime}
           duration={duration}
+          currentTime={currentTime}
+          onProgressChange={handleProgressChange}         
+          setIsSeeking={setIsSeeking}   
           progressRef={progressRef}
           thumbRef={thumbRef}   
-          setIsSeeking={setIsSeeking}   
         />
 
         <div className={classes.time}>
@@ -154,25 +134,11 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           <h3 className={classes.title}>{podcast?.title}</h3>
           <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>
         </div>
-
-        <div className={classes.playbackControls}>
-          {!isPlaying && (
-            <button>
-              <IconPlay
-                onClick={handlePlayClick}
-                className={classes.play}
-              />
-            </button>
-          )}
-          {isPlaying && (
-            <button>
-              <IconPause
-                onClick={handlePauseClick}
-                className={classes.pause}
-              />
-            </button>
-          )}
-        </div>
+        <PlaybackControl 
+          isPlaying={isPlaying}
+          onPlayClick={handlePlayClick}
+          onPauseClick={handlePauseClick}
+        />       
 
         <div className={classes.volumeControl}>
           <IconMuteSound className={classes.muteSound} />

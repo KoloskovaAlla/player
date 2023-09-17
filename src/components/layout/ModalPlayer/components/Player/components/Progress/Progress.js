@@ -1,29 +1,29 @@
 import classes from './Progress.module.scss';
 
 export const Progress = ({
-  handleProgressChange, 
+  onProgressChange, 
   currentTime,
   duration,
   progressRef,
   thumbRef,  
   setIsSeeking,
 }) => {
-  const handleTouchMoveProgress = (event) => {
+  const handleProgressTouchMove = (event) => {
     event.stopPropagation();
     setIsSeeking(true);
   };
 
-  const handleTouchStartProgress = (event) => {
+  const handleProgressTouchStart = (event) => {
     event.stopPropagation();
     setIsSeeking(true);
   };
 
-  const handleTouchEndProgress = (event) => {
+  const handleProgressTouchEnd = (event) => {
     event.stopPropagation();
     setIsSeeking(false);
   };
 
-  const handleTouchCancelProgress = (event) => {
+  const handleProgressTouchCancel = (event) => {
     event.stopPropagation();
     setIsSeeking(false);
   };
@@ -47,11 +47,11 @@ export const Progress = ({
         max="1"
         step="any"
         value={`${currentTime / duration}`}
-        onInput={handleProgressChange}
-        onTouchMove={handleTouchMoveProgress}
-        onTouchStart={handleTouchStartProgress}
-        onTouchEnd={handleTouchEndProgress}
-        onTouchCancel={handleTouchCancelProgress}
+        onInput={onProgressChange}
+        onTouchMove={handleProgressTouchMove}
+        onTouchStart={handleProgressTouchStart}
+        onTouchEnd={handleProgressTouchEnd}
+        onTouchCancel={handleProgressTouchCancel}
       />
     </label>
   )
