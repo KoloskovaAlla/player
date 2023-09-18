@@ -2,9 +2,8 @@ import { useCurrentPodcast } from 'hooks';
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'hooks';
-import { PlaybackControl, Progress } from './components';
+import { PlaybackControl, Progress, VolumeContol } from './components';
 import { classNames } from 'utils/helpers';
-import { IconMuteSound, IconMaxSound } from './assets';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useTheme();
@@ -21,7 +20,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const [secondsLeft, setSecondsLeft] = useState();
   const [seconds, setSeconds] = useState();
 
-  const [statevolum, setStateVolum] = useState(0.3);
+  const [statevolume, setStateVolume] = useState(0.3);
 
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -83,29 +82,11 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   };
 
   const handleVolumeChange = (event) => {
-    setStateVolum(event.target.value / 100);
+    setStateVolume(event.target.value / 100);
     audio.volume = event.target.value / 100;
   };
 
-  const handleVolumeThumbMove = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(true);
-  };
 
-  const handleVolumeThumbStart = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(true);
-  };
-
-  const handleVolumeThumbEnd = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(false);
-  };
-
-  const handleVolumeThumbCancel = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(false);
-  }; 
 
   return (
     <div
@@ -140,7 +121,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           onPauseClick={handlePauseClick}
         />       
 
-        <div className={classes.volumeControl}>
+        {/* <div className={classes.volumeControl}>
           <IconMuteSound className={classes.muteSound} />
           <label className={classes.volume}>
             <div className={classes.volumeWrapper}>
@@ -171,7 +152,12 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
             />
           </label>
           <IconMaxSound className={classes.maxsound} />
-        </div>
+        </div> */}
+        <VolumeContol 
+          statevolume={statevolume}          
+          onVolumeChange={handleVolumeChange}
+          setIsChangingVolume={setIsChangingVolume}
+        />
       </div>
     </div>
   );
