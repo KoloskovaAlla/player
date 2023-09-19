@@ -86,8 +86,6 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     audio.volume = event.target.value / 100;
   };
 
-
-
   return (
     <div
       className={playerClassNames}
@@ -120,7 +118,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           onPlayClick={handlePlayClick}
           onPauseClick={handlePauseClick}
         /> 
-                
+
         <VolumeControl 
           statevolume={statevolume}          
           onVolumeChange={handleVolumeChange}
