@@ -2,7 +2,7 @@ import { useCurrentPodcast } from 'hooks';
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'hooks';
-import { PlaybackControl, Progress, VolumeContol } from './components';
+import { PlaybackControl, Progress, VolumeControl } from './components';
 import { classNames } from 'utils/helpers';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
@@ -119,41 +119,9 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           isPlaying={isPlaying}
           onPlayClick={handlePlayClick}
           onPauseClick={handlePauseClick}
-        />       
-
-        {/* <div className={classes.volumeControl}>
-          <IconMuteSound className={classes.muteSound} />
-          <label className={classes.volume}>
-            <div className={classes.volumeWrapper}>
-              <div
-                className={classes.volumeCurrent}
-                style={{ width: `${Math.round(statevolum * 100)}%`, height: '5px', background: '#333' }}>
-              </div>
-              <div
-                onTouchMove={handleVolumeThumbMove}
-                onTouchStart={handleVolumeThumbStart}
-                onTouchEnd={handleVolumeThumbEnd}
-                onTouchCancel={handleVolumeThumbCancel}
-                // onClick={handleVolumeThumbTouch}
-                className={classes.volumeThumb}
-                style={{ left: `${Math.round(statevolum * 100)}%` }}
-              >
-              </div>
-            </div>
-            <input
-              className={classes.volume_input}
-              value={Math.round(statevolum * 100)}
-              type="range" name="volBar" id="volBar"
-              onChange={handleVolumeChange}
-              onTouchMove={handleVolumeThumbMove}
-              onTouchStart={handleVolumeThumbStart}
-              onTouchEnd={handleVolumeThumbEnd}
-              onTouchCancel={handleVolumeThumbCancel}
-            />
-          </label>
-          <IconMaxSound className={classes.maxsound} />
-        </div> */}
-        <VolumeContol 
+        /> 
+                
+        <VolumeControl 
           statevolume={statevolume}          
           onVolumeChange={handleVolumeChange}
           setIsChangingVolume={setIsChangingVolume}

@@ -1,8 +1,8 @@
 import classes from './VolumeControl.module.scss';
 import { IconMuteSound, IconMaxSound } from 'assets';
 
-export const VolumeContol = ({ statevolume, onVolumeChange, setIsChangingVolume }) => {
-    const handleVolumeThumbMove = (event) => {
+export const VolumeControl = ({ statevolume, onVolumeChange, setIsChangingVolume }) => {
+  const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
   };
@@ -20,7 +20,8 @@ export const VolumeContol = ({ statevolume, onVolumeChange, setIsChangingVolume 
   const handleVolumeThumbCancel = (event) => {
     event.stopPropagation();
     setIsChangingVolume(false);
-  }; 
+  };
+
   return (
     <div className={classes.volumeControl}>
       <IconMuteSound className={classes.muteSound} />
