@@ -2,9 +2,8 @@ import { useCurrentPodcast } from 'hooks';
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { useTheme } from 'hooks';
-import { PlaybackControl, Progress } from './components';
+import { PlaybackControl, Progress, VolumeControl } from './components';
 import { classNames } from 'utils/helpers';
-import { IconMuteSound, IconMaxSound } from './assets';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useTheme();
@@ -21,7 +20,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const [secondsLeft, setSecondsLeft] = useState();
   const [seconds, setSeconds] = useState();
 
-  const [statevolum, setStateVolum] = useState(0.3);
+  const [statevolume, setStateVolume] = useState(0.3);
 
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -83,29 +82,11 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   };
 
   const handleVolumeChange = (event) => {
-    setStateVolum(event.target.value / 100);
+    setStateVolume(event.target.value / 100);
     audio.volume = event.target.value / 100;
   };
 
-  const handleVolumeThumbMove = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(true);
-  };
 
-  const handleVolumeThumbStart = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(true);
-  };
-
-  const handleVolumeThumbEnd = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(false);
-  };
-
-  const handleVolumeThumbCancel = (event) => {
-    event.stopPropagation();
-    setIsChangingVolume(false);
-  }; 
 
   return (
     <div
@@ -138,40 +119,13 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           isPlaying={isPlaying}
           onPlayClick={handlePlayClick}
           onPauseClick={handlePauseClick}
-        />       
-
-        <div className={classes.volumeControl}>
-          <IconMuteSound className={classes.muteSound} />
-          <label className={classes.volume}>
-            <div className={classes.volumeWrapper}>
-              <div
-                className={classes.volumeCurrent}
-                style={{ width: `${Math.round(statevolum * 100)}%`, height: '5px', background: '#333' }}>
-              </div>
-              <div
-                onTouchMove={handleVolumeThumbMove}
-                onTouchStart={handleVolumeThumbStart}
-                onTouchEnd={handleVolumeThumbEnd}
-                onTouchCancel={handleVolumeThumbCancel}
-                // onClick={handleVolumeThumbTouch}
-                className={classes.volumeThumb}
-                style={{ left: `${Math.round(statevolum * 100)}%` }}
-              >
-              </div>
-            </div>
-            <input
-              className={classes.volume_input}
-              value={Math.round(statevolum * 100)}
-              type="range" name="volBar" id="volBar"
-              onChange={handleVolumeChange}
-              onTouchMove={handleVolumeThumbMove}
-              onTouchStart={handleVolumeThumbStart}
-              onTouchEnd={handleVolumeThumbEnd}
-              onTouchCancel={handleVolumeThumbCancel}
-            />
-          </label>
-          <IconMaxSound className={classes.maxsound} />
-        </div>
+        /> 
+                
+        <VolumeControl 
+          statevolume={statevolume}          
+          onVolumeChange={handleVolumeChange}
+          setIsChangingVolume={setIsChangingVolume}
+        />
       </div>
     </div>
   );
