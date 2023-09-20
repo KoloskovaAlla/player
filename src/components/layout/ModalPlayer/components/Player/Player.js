@@ -1,7 +1,6 @@
-import { useCurrentPodcast } from 'hooks';
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useTheme } from 'hooks';
+import { useTheme, useCurrentPodcast } from 'hooks';
 import { PlaybackControl, Progress, VolumeControl } from './components';
 import { classNames } from 'utils/helpers';
 
@@ -9,19 +8,15 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useTheme();
 
   const { id, podcast } = useCurrentPodcast();
-
   const [audio, setAudio] = useState(null);
-
   const [currentTime, setCurrentTime] = useState(null);
   const [duration, setDuration] = useState(null);
   const [progress, setProgress] = useState(null);
   const [minutes, setMinutes] = useState();
-  const [minutesLeft, setMinutesLeft] = useState();
-  const [secondsLeft, setSecondsLeft] = useState();
   const [seconds, setSeconds] = useState();
-
-  const [statevolume, setStateVolume] = useState(0.3);
-
+  const [remainigMinutes, setRemainigMinutes] = useState();
+  const [remainigSeconds, setRemainigSeconds] = useState();
+  const [volume, setVolume] = useState(0.3);
   const [isPlaying, setIsPlaying] = useState(true);
 
   const playerClassNames = classNames(classes.player, {
@@ -29,14 +24,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   });
 
   const thumbRef = useRef();
-  const progressRef = useRef();
-
-  useEffect(() => {
-    if (!podcast) return;
-    const { audio: { src } } = podcast;
-    let audio = new Audio(src);
-    setAudio(audio);
-  }, [id, podcast]);
+  const progressRef = useRef(); 
 
   const handlePlayClick = () => {
     setIsPlaying(true);
@@ -57,20 +45,10 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     setDuration(duration);
     setCurrentTime(currentTime);
     setMinutes(Math.floor(currentTime / 60));
-    setMinutesLeft(Math.floor((duration - currentTime) / 60));
+    setRemainigMinutes(Math.floor((duration - currentTime) / 60));
     setSeconds(Math.floor(currentTime - Math.floor(currentTime / 60) * 60));
-    setSecondsLeft(Math.floor(duration - currentTime - (Math.floor((duration - currentTime) / 60)) * 60));
-  };
-
-  useEffect(() => {
-    if (!audio) return;
-    audio.play();
-    audio.addEventListener('timeupdate', handleAudioTimeUpdate);
-    return () => {
-      audio.removeEventListener('timeupdate', handleAudioTimeUpdate);
-      audio.pause();
-    }
-  }, [audio, id]);
+    setRemainigSeconds(Math.floor(duration - currentTime - (Math.floor((duration - currentTime) / 60)) * 60));
+  };  
 
   const handleProgressChange = (event) => {
     const changedCurrentTime = event.target.value * duration;
@@ -82,9 +60,26 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   };
 
   const handleVolumeChange = (event) => {
-    setStateVolume(event.target.value / 100);
+    setVolume(event.target.value / 100);
     audio.volume = event.target.value / 100;
   };
+
+  useEffect(() => {
+    if (!podcast) return;
+    const { audio: { src } } = podcast;
+    const audio = new Audio(src);
+    setAudio(audio);
+  }, [id, podcast]);
+
+  useEffect(() => {
+    if (!audio) return;
+    audio.play();
+    audio.addEventListener('timeupdate', handleAudioTimeUpdate);
+    return () => {
+      audio.removeEventListener('timeupdate', handleAudioTimeUpdate);
+      audio.pause();
+    };
+  }, [audio, id]);
 
   return (
     <div
@@ -106,13 +101,14 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
 
         <div className={classes.time}>
           <div>{minutes}:{seconds}</div>
-          <div> - {minutesLeft}:{secondsLeft}</div>
+          <div> - {remainigMinutes}:{remainigSeconds}</div>
         </div>
 
         <div className={classes.info}>
           <h3 className={classes.title}>{podcast?.title}</h3>
           <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>
         </div>
+
         <PlaybackControl 
           isPlaying={isPlaying}
           onPlayClick={handlePlayClick}
@@ -120,7 +116,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         /> 
 
         <VolumeControl 
-          statevolume={statevolume}          
+          volume={volume}          
           onVolumeChange={handleVolumeChange}
           setIsChangingVolume={setIsChangingVolume}
         />
