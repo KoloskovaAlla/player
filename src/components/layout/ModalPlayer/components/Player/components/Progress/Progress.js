@@ -35,8 +35,8 @@ export const Progress = ({
           ref={progressRef}
         />
         <div
-          ref={thumbRef}
           className={classes.thumb}
+          ref={thumbRef}
         >
         </div>
       </div>
@@ -54,5 +54,5 @@ export const Progress = ({
         onTouchCancel={handleProgressTouchCancel}
       />
     </label>
-  )
+  );
 };
