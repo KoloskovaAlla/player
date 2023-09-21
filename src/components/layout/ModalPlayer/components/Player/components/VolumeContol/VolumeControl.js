@@ -35,8 +35,7 @@ export const VolumeControl = ({ volume, onVolumeChange, setIsChangingVolume }) =
             onTouchMove={handleVolumeThumbMove}
             onTouchStart={handleVolumeThumbStart}
             onTouchEnd={handleVolumeThumbEnd}
-            onTouchCancel={handleVolumeThumbCancel}
-            // onClick={handleVolumeThumbTouch}
+            onTouchCancel={handleVolumeThumbCancel}           
             className={classes.volumeThumb}
             style={{ left: `${Math.round(volume * 100)}%` }}
           >
@@ -55,5 +54,5 @@ export const VolumeControl = ({ volume, onVolumeChange, setIsChangingVolume }) =
       </label>
       <IconMaxSound className={classes.maxsound} />
     </div>
-  )
+  );
 };
