@@ -1,9 +1,9 @@
-import { setPodcast, setPodcastKey, setPodcastId } from 'store/slices/currentPodcastSlice';
+import { setPodcast, setPodcastKey, setPodcastId } from 'store/slices/podcastSlice';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
-export const useCurrentPodcast = () => {
-  const { podcast, podcastId, podcastKey } = useSelector((state) => state.currentPodcastReducer);
+export const usePodcast = () => {
+  const { podcast, podcastId, podcastKey } = useSelector((state) => state.podcastReducer);
 
   useEffect(() => {
     localStorage.setItem('podcast', JSON.stringify(podcast));

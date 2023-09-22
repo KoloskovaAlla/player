@@ -1,10 +1,9 @@
-import { usePlaying, useModal, useCurrentPodcast } from 'hooks';
+import { usePlaying, useModal, usePodcast } from 'hooks';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { setPodcast } from 'store/slices/currentPodcastSlice';
 import { ReactComponent as IconPlay } from './assets/play.svg'
 import { ReactComponent as IconPause } from './assets/pause.svg'
 import classes from './PodcastPreview.module.scss';
@@ -22,7 +21,7 @@ export const PodcastPreview = ({ podcast }) => {
 
   const { setIsModalOpen } = useModal();
   const { isPlaying, setIsPlaying } = usePlaying();
-  const { setPodcastKey, setPodcastId } = useCurrentPodcast();
+  const { setPodcastKey, setPodcastId, setPodcast } = usePodcast();
 
   useEffect(() => {
     if (!playButtonRef.current) return;

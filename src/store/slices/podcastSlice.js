@@ -7,8 +7,8 @@ const initialState = {
   podcastKey: localStorage.getItem('key') ?? null,
 };
 
-export const currentPodcastSlice = createSlice({
-  name: 'currentPodcast',
+export const podcastSlice = createSlice({
+  name: 'podcast',
   initialState,
   reducers: {
     setPodcast: (state, action) => { state.podcast = action.payload },
@@ -17,6 +17,6 @@ export const currentPodcastSlice = createSlice({
   }
 });
 
-export const { reducer: currentPodcastReducer } = currentPodcastSlice;
+export const { reducer: podcastReducer } = podcastSlice;
 
-export const { setPodcast, setPodcastId, setPodcastKey } = currentPodcastSlice.actions;
+export const { setPodcast, setPodcastId, setPodcastKey } = podcastSlice.actions;
