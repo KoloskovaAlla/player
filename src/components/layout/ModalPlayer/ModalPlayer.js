@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import 'swiper/swiper-bundle.min.css';
-import { useModal, useCurrentPodcast, usePodcasts } from 'hooks';
+import { useModal, usePodcast, usePodcasts } from 'hooks';
 import { Player } from './components/Player';
 import { throttle } from 'utils/helpers';
 import { IconPrev, IconNext, IconClose } from './assets';
@@ -15,7 +15,7 @@ export const ModalPlayer = () => {
 
   const { setIsModalOpen } = useModal();
   const { podcastsData: podcasts } = usePodcasts();
-  const { podcastId, setPodcastId, setPodcast } = useCurrentPodcast();
+  const { podcastId, setPodcastId, setPodcast } = usePodcast();
   const length = Object.keys(podcasts).length;
 
   const [isResize, setIsResize] = useState(false);

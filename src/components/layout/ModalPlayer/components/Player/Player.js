@@ -1,13 +1,13 @@
 import classes from './Player.module.scss';
 import { useEffect, useRef, useState } from 'react';
-import { useTheme, useCurrentPodcast } from 'hooks';
+import { useTheme, usePodcast } from 'hooks';
 import { PlaybackControl, Progress, VolumeControl } from './components';
 import { classNames } from 'utils/helpers';
 
 export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const { theme } = useTheme();
 
-  const { id, podcast } = useCurrentPodcast();
+  const { id, podcast } = usePodcast();
   const [audio, setAudio] = useState(null);
   const [currentTime, setCurrentTime] = useState(null);
   const [duration, setDuration] = useState(null);

@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useCurrentPodcast, usePlaying, useModal } from 'hooks';
+import { usePodcast, usePlaying, useModal } from 'hooks';
 import Preloader from 'components/layout/Preloader';
 import { ModalPlayer } from 'components/layout/ModalPlayer';
 import { ReactComponent as IconPlay } from './assets/play.svg'
@@ -8,7 +8,7 @@ import classes from './PodcastPage.module.scss';
 export const PodcastPage = () => {
   const dispatch = useDispatch();
 
-  const { podcast, setKey, setId, setPodcast } = useCurrentPodcast();
+  const { podcast, setKey, setId, setPodcast } = usePodcast();
   const { setIsPlaying } = usePlaying();
   const { setIsModalOpen, isModalOpen } = useModal();
 

@@ -5,7 +5,7 @@ import { podcastsReducer } from './slices/podcastsSlice';
 import { playerReducer } from './slices/playerSlice';
 import { playingReducer } from './slices/playingSlice';
 import { audioReducer } from './slices/audioSlice';
-import { currentPodcastReducer } from './slices/currentPodcastSlice';
+import { podcastReducer } from './slices/podcastSlice';
 import { modalReducer } from './slices/modalSlice';
 
 const rootReducer = combineReducers({
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   playerReducer,
   playingReducer,
   audioReducer,
-  currentPodcastReducer,
+  podcastReducer,
   modalReducer
 });
 
