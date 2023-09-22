@@ -50,18 +50,18 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     setRemainigSeconds(Math.floor(duration - currentTime - (Math.floor((duration - currentTime) / 60)) * 60));
   };  
 
-  const handleProgressChange = (event) => {
-    const changedCurrentTime = event.target.value * duration;
+  const handleProgressChange = ({ target: { value } }) => {
+    const changedCurrentTime =value * duration;
     thumbRef.current.style.left = `${changedCurrentTime / duration * 100}%`;
     progressRef.current.style.width = `${changedCurrentTime / duration * 100}%`;
     setCurrentTime(changedCurrentTime);
-    event.target.value = `${changedCurrentTime / duration}`;
+    value = `${changedCurrentTime / duration}`;
     audio.currentTime = changedCurrentTime;
   };
 
-  const handleVolumeChange = (event) => {
-    setVolume(event.target.value / 100);
-    audio.volume = event.target.value / 100;
+  const handleVolumeChange = ({ target: { value } }) => {
+    setVolume(value / 100);
+    audio.volume = value / 100;
   };
 
   useEffect(() => {
