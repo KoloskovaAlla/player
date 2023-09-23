@@ -36,19 +36,23 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
     audio.pause();
   };
 
-  const handleAudioTimeUpdate = (event) => {
-    const { target: { duration, currentTime } } = event;
+  const handleAudioTimeUpdate = ({ target: { duration, currentTime } }) => {
     const progress = currentTime / duration;
+    const currentMinutes = Math.floor(currentTime / 60);
+    const remainingMinutes = Math.floor((duration - currentTime) / 60);
+    const currentSeconds = Math.floor(currentTime - currentMinutes * 60);
+    const remainingSeconds = Math.floor(duration - currentTime - remainingMinutes * 60);
+
     setProgress(progress);
     progressRef.current.style.width = `${progress * 100}%`;
     thumbRef.current.style.left = `${progress * 100}%`;
     setDuration(duration);
     setCurrentTime(currentTime);
-    setMinutes(Math.floor(currentTime / 60));
-    setRemainigMinutes(Math.floor((duration - currentTime) / 60));
-    setSeconds(Math.floor(currentTime - Math.floor(currentTime / 60) * 60));
-    setRemainigSeconds(Math.floor(duration - currentTime - (Math.floor((duration - currentTime) / 60)) * 60));
-  };  
+    setMinutes(currentMinutes);
+    setRemainigMinutes(remainingMinutes);
+    setSeconds(currentSeconds);
+    setRemainigSeconds(remainingSeconds);
+  };
 
   const handleProgressChange = ({ target: { value } }) => {
     const changedCurrentTime =value * duration;
@@ -82,9 +86,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   }, [audio, id]);
 
   return (
-    <div
-      className={playerClassNames}
-    >
+    <div className={playerClassNames}>
       <div className={classes.wrapper}>
         <div className={classes.image}>
           <img src={podcast?.image?.src} alt={podcast?.image?.alternate} />
