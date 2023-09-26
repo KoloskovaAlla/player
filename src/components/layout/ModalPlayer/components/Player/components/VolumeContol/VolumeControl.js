@@ -1,7 +1,11 @@
 import classes from './VolumeControl.module.scss';
 import { IconMuteSound, IconMaxSound } from 'assets';
 
-export const VolumeControl = ({ volume, onVolumeChange, setIsChangingVolume }) => {
+export const VolumeControl = ({
+  volume,
+  onVolumeChange,
+  setIsChangingVolume,
+}) => {
   const handleVolumeThumbMove = (event) => {
     event.stopPropagation();
     setIsChangingVolume(true);
@@ -29,22 +33,23 @@ export const VolumeControl = ({ volume, onVolumeChange, setIsChangingVolume }) =
         <div className={classes.volumeWrapper}>
           <div
             className={classes.volumeCurrent}
-            style={{ width: `${Math.round(volume * 100)}%`, height: '5px', background: '#333' }}>
-          </div>
+            style={{ width: `${Math.round(volume * 100)}%` }}
+          />
           <div
+            className={classes.volumeThumb}
+            style={{ left: `${Math.round(volume * 100)}%` }}
             onTouchMove={handleVolumeThumbMove}
             onTouchStart={handleVolumeThumbStart}
             onTouchEnd={handleVolumeThumbEnd}
-            onTouchCancel={handleVolumeThumbCancel}           
-            className={classes.volumeThumb}
-            style={{ left: `${Math.round(volume * 100)}%` }}
-          >
-          </div>
+            onTouchCancel={handleVolumeThumbCancel}
+          />
         </div>
         <input
           className={classes.volume_input}
           value={Math.round(volume * 100)}
-          type="range" name="volBar" id="volBar"
+          type="range"
+          name="volBar"
+          id="volBar"
           onChange={onVolumeChange}
           onTouchMove={handleVolumeThumbMove}
           onTouchStart={handleVolumeThumbStart}
