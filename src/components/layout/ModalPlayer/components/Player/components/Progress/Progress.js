@@ -1,11 +1,11 @@
 import classes from './Progress.module.scss';
 
 export const Progress = ({
-  onProgressChange, 
+  onProgressChange,
   currentTime,
   duration,
   progressRef,
-  thumbRef,  
+  thumbRef,
   setIsSeeking,
 }) => {
   const handleProgressTouchMove = (event) => {
@@ -27,6 +27,7 @@ export const Progress = ({
     event.stopPropagation();
     setIsSeeking(false);
   };
+
   return (
     <label className={classes.playerProgress}>
       <div className={classes.progress_bar}>
@@ -37,8 +38,7 @@ export const Progress = ({
         <div
           className={classes.thumb}
           ref={thumbRef}
-        >
-        </div>
+        />
       </div>
       <input
         className={classes.progress_input}
