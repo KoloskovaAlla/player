@@ -1,7 +1,11 @@
 import classes from './PlaybackControl.module.scss';
 import { IconPlay, IconPause } from 'assets';
 
-export const PlaybackControl = ({ isPlaying, onPlayClick, onPauseClick }) => {
+export const PlaybackControl = ({ 
+  isPlaying, 
+  onPlayClick, 
+  onPauseClick,
+ }) => {
   return (
     <div className={classes.playbackControls}>
       {!isPlaying && (
