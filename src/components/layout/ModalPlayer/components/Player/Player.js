@@ -24,7 +24,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   });
 
   const thumbRef = useRef();
-  const progressRef = useRef(); 
+  const progressRef = useRef();
 
   const handlePlayClick = () => {
     setIsPlaying(true);
@@ -55,7 +55,7 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   };
 
   const handleProgressChange = ({ target: { value } }) => {
-    const changedCurrentTime =value * duration;
+    const changedCurrentTime = value * duration;
     thumbRef.current.style.left = `${changedCurrentTime / duration * 100}%`;
     progressRef.current.style.width = `${changedCurrentTime / duration * 100}%`;
     setCurrentTime(changedCurrentTime);
@@ -91,19 +91,19 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         <div className={classes.image}>
           <img src={podcast?.image?.src} alt={podcast?.image?.alternate} />
         </div>
-           
+
         <Progress
           duration={duration}
           currentTime={currentTime}
-          onProgressChange={handleProgressChange}         
-          setIsSeeking={setIsSeeking}   
+          onProgressChange={handleProgressChange}
+          setIsSeeking={setIsSeeking}
           progressRef={progressRef}
-          thumbRef={thumbRef}   
+          thumbRef={thumbRef}
         />
 
         <div className={classes.time}>
-          <div>{minutes}:{seconds}</div>
-          <div> - {remainigMinutes}:{remainigSeconds}</div>
+          <div>{minutes !== undefined && seconds !== undefined ? `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` : ''}</div>
+          <div> - {remainigMinutes !== undefined && remainigSeconds !== undefined ? `${remainigMinutes.toString().padStart(2, '0')}:${remainigSeconds.toString().padStart(2, '0')}` : ''}</div>
         </div>
 
         <div className={classes.info}>
@@ -111,14 +111,14 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
           <h4 className={classes.subtitle}>{podcast?.subtitle}</h4>
         </div>
 
-        <PlaybackControl 
+        <PlaybackControl
           isPlaying={isPlaying}
           onPlayClick={handlePlayClick}
           onPauseClick={handlePauseClick}
-        /> 
+        />
 
-        <VolumeControl 
-          volume={volume}          
+        <VolumeControl
+          volume={volume}
           onVolumeChange={handleVolumeChange}
           setIsChangingVolume={setIsChangingVolume}
         />
