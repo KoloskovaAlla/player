@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import Spiner from 'components/common/Spiner';
 
-const Preloader = () => {
+export const Preloader = () => {
 
   const { theme } = useSelector((state) => state.themeReducer);
 
@@ -12,10 +12,8 @@ const Preloader = () => {
   });
 
   return (
-    <div className={classes}>
+    <div className={'preloader'}>
       <Spiner />
     </div>
   );
 };
-
-export default Preloader;
