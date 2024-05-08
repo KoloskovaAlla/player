@@ -12,10 +12,10 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
   const [currentTime, setCurrentTime] = useState(null);
   const [duration, setDuration] = useState(null);
   const [progress, setProgress] = useState(null);
-  const [minutes, setMinutes] = useState();
-  const [seconds, setSeconds] = useState();
-  const [remainigMinutes, setRemainigMinutes] = useState();
-  const [remainigSeconds, setRemainigSeconds] = useState();
+  const [minutes, setMinutes] = useState('');
+  const [seconds, setSeconds] = useState('');
+  const [remainigMinutes, setRemainigMinutes] = useState('');
+  const [remainigSeconds, setRemainigSeconds] = useState('');
   const [volume, setVolume] = useState(0.3);
   const [isPlaying, setIsPlaying] = useState(true);
 
@@ -102,8 +102,8 @@ export const Player = ({ setIsSeeking, setIsChangingVolume }) => {
         />
 
         <div className={classes.time}>
-          <div>{minutes !== undefined && seconds !== undefined ? `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` : ''}</div>
-          <div> - {remainigMinutes !== undefined && remainigSeconds !== undefined ? `${remainigMinutes.toString().padStart(2, '0')}:${remainigSeconds.toString().padStart(2, '0')}` : ''}</div>
+          <div>{`${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}</div>
+          <div> - {`${remainigMinutes.toString().padStart(2, '0')}:${remainigSeconds.toString().padStart(2, '0')}`}</div>
         </div>
 
         <div className={classes.info}>
